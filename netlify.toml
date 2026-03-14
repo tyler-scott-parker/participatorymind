@@ -1,5 +1,5 @@
 [build]
-  command = "python3 -m pip install -r requirements.txt --break-system-packages && npm run build"
+  command = "pip install Pillow --quiet && npm run build"
   publish = "_site"
 
 [[redirects]]
