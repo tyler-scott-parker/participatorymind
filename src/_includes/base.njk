@@ -44,6 +44,15 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/style.css" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GGT6FKGRFC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-GGT6FKGRFC');
+  </script>
 </head>
 <body>
   {% if articleId %}<div id="reading-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>{% endif %}
@@ -80,12 +89,11 @@
     <div class="footer-newsletter">
       <p class="footer-newsletter-heading">New articles by email</p>
       <p class="footer-newsletter-sub">When something new is published here, you'll get a brief note with a hook and a link. No noise.</p>
-      <!-- BUTTONDOWN: replace YOUR_BUTTONDOWN_USERNAME with your username after signing up at buttondown.email -->
       <form
-        action="https://buttondown.email/api/emails/embed-subscribe/YOUR_BUTTONDOWN_USERNAME"
+        action="https://buttondown.email/api/emails/embed-subscribe/tylerparkerchess"
         method="post"
         target="popupwindow"
-        onsubmit="window.open('https://buttondown.email/YOUR_BUTTONDOWN_USERNAME', 'popupwindow')"
+        onsubmit="window.open('https://buttondown.email/tylerparkerchess', 'popupwindow')"
         class="bd-form"
       >
         <input type="email" name="email" placeholder="your@email.com" required class="bd-input" />
