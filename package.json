@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "python3 generate-og.py && eleventy",
+    "build:netlify": "eleventy",
     "start": "eleventy --serve",
     "dev": "eleventy --serve",
     "og": "python3 generate-og.py",
