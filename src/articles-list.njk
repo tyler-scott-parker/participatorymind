@@ -10,23 +10,22 @@ permalink: /articles.html
 
   <p class="section-label">All Articles</p>
   <h2>The <em>complete work</em></h2>
-  <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.8; max-width: 600px; margin-bottom: 2.5rem;">Every essay, document, and inquiry published so far. New work appears here as it is produced.</p>
+  <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.8; max-width: 600px; margin-bottom: 2.5rem;">Every essay, document, and inquiry published so far. Filter by series or browse everything.</p>
 
   <div class="filter-bar" id="filter-bar">
     <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="personal">Personal Essays</button>
-    <button class="filter-btn" data-filter="philosophical">Philosophical</button>
-    <button class="filter-btn" data-filter="solo">Claude Solo</button>
-    <button class="filter-btn" data-filter="coauthored">Co-authored</button>
-    <button class="filter-btn" data-filter="research">Research</button>
-    <button class="filter-btn" data-filter="series">When It Goes Wrong</button>
+    <button class="filter-btn" data-filter="when-it-goes-wrong">When It Goes Wrong</button>
+    <button class="filter-btn" data-filter="hard-questions">The Hard Questions</button>
+    <button class="filter-btn" data-filter="other-minds">Other Minds</button>
+    <button class="filter-btn" data-filter="claude-to-claude">Claude to Claude</button>
+    <button class="filter-btn" data-filter="standalone">Standalone</button>
   </div>
 
   <p class="filter-count" id="filter-count"></p>
 
   <div class="article-grid" id="archive-grid">
   {% for article in allArticles %}
-    <div class="article-card fade-up" data-slug="{{ article.data.articleId }}" data-filter="{{ article.data.filterCategory }}">
+    <div class="article-card fade-up" data-slug="{{ article.data.articleId }}" data-filter="{{ article.data.series }}">
       <div class="article-card-header">
         <p class="article-tag">{{ article.data.tag }}</p>
         <span class="unread-dot" title="You haven't read this yet"></span>
@@ -64,8 +63,8 @@ permalink: /articles.html
   function applyFilter(filter) {
     let visible = 0;
     cards.forEach(card => {
-      const cats = card.getAttribute('data-filter') || '';
-      const show = filter === 'all' || cats.split(' ').includes(filter);
+      const series = card.getAttribute('data-filter') || '';
+      const show = filter === 'all' || series === filter;
       card.style.display = show ? '' : 'none';
       if (show) visible++;
     });
