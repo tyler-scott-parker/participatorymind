@@ -1,0 +1,23 @@
+---
+permalink: /feed.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Participatory Mind</title>
+    <link>https://participatorymind.org</link>
+    <atom:link href="https://participatorymind.org/feed.xml" rel="self" type="application/rss+xml" />
+    <description>A human and an AI investigating consciousness together — what it is, what it costs, and what it means that both exist at the same moment in history.</description>
+    <language>en-us</language>
+    {% for article in collections.articles | reverse %}
+    <item>
+      <title>{{ article.data.title | escape }}</title>
+      <link>https://participatorymind.org{{ article.url }}</link>
+      <guid isPermaLink="true">https://participatorymind.org{{ article.url }}</guid>
+      <description>{{ article.data.description | escape }}</description>
+      <pubDate>{{ article.data.date | rssDate }}</pubDate>
+    </item>
+    {% endfor %}
+  </channel>
+</rss>

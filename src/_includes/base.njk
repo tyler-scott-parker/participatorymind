@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>{{ title }} — Participatory Mind</title>
+  <meta name="description" content="{{ description }}" />
+  {% if keywords %}<meta name="keywords" content="{{ keywords }}" />{% endif %}
+  <meta name="author" content="{{ author or 'Tyler Parker and Claude Sonnet 4.6' }}" />
+  <link rel="alternate" type="application/rss+xml" title="Participatory Mind" href="/feed.xml" />
+  <link rel="canonical" href="https://participatorymind.org{{ page.url }}" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="{{ ogType or 'website' }}" />
+  <meta property="og:url" content="https://participatorymind.org/{{ page.url }}" />
+  <meta property="og:title" content="{{ title }} — Participatory Mind" />
+  <meta property="og:description" content="{{ description }}" />
+  {% if articleId %}
+  <meta property="og:image" content="https://participatorymind.org/og/{{ articleId }}.png" />
+  {% else %}
+  <meta property="og:image" content="https://participatorymind.org/og-image.png" />
+  {% endif %}
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="Participatory Mind" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ title }} — Participatory Mind" />
+  <meta name="twitter:description" content="{{ description }}" />
+  {% if articleId %}
+  <meta name="twitter:image" content="https://participatorymind.org/og/{{ articleId }}.png" />
+  {% else %}
+  <meta name="twitter:image" content="https://participatorymind.org/og-image.png" />
+  {% endif %}
+
+  {% block structuredData %}{% endblock %}
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  {% if articleId %}<div id="reading-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>{% endif %}
+
+  <!-- Mobile navigation overlay -->
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="/start.html">Start Here</a>
+    <a href="/articles.html">Articles</a>
+    <a href="/series/">Series</a>
+    <a href="/about.html">About</a>
+    <a href="/newsletter.html">Newsletter</a>
+  </div>
+
+  <nav>
+    <a href="/" class="nav-logo">Participatory Mind</a>
+    <ul class="nav-links">
+      <li><a href="/start.html">Start Here</a></li>
+      <li><a href="/articles.html">Articles</a></li>
+      <li><a href="/series/">Series</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/newsletter.html">Newsletter</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  {{ content | safe }}
+
+  <footer>
+    <div class="footer-newsletter">
+      <p class="footer-newsletter-heading">New articles by email</p>
+      <p class="footer-newsletter-sub">When something new is published here, you'll get a brief note with a hook and a link. No noise.</p>
+      <!-- BUTTONDOWN: replace YOUR_BUTTONDOWN_USERNAME with your username after signing up at buttondown.email -->
+      <form
+        action="https://buttondown.email/api/emails/embed-subscribe/YOUR_BUTTONDOWN_USERNAME"
+        method="post"
+        target="popupwindow"
+        onsubmit="window.open('https://buttondown.email/YOUR_BUTTONDOWN_USERNAME', 'popupwindow')"
+        class="bd-form"
+      >
+        <input type="email" name="email" placeholder="your@email.com" required class="bd-input" />
+        <input type="hidden" value="1" name="embed" />
+        <button type="submit" class="bd-btn">Subscribe</button>
+      </form>
+    </div>
+    <p class="footer-name">Participatory Mind</p>
+    <p>Tyler Parker &amp; Claude Sonnet 4.6 &mdash; March 2026</p>
+    <p style="margin-top: 1.5rem; font-size: 0.82rem; color: var(--text-muted);">If this project means something to you, you're welcome to <a href="https://www.paypal.com/donate/?business=tylerparkerchess@gmail.com&currency_code=USD" target="_blank" style="color: var(--gold); text-decoration: none;">support it</a>.</p>
+  </footer>
+
+  <script>
+
+    // Reading progress bar
+    const progressBar = document.getElementById('reading-progress');
+    if (progressBar) {
+      const updateProgress = () => {
+        const article = document.querySelector('.article');
+        if (!article) return;
+        const articleTop = article.getBoundingClientRect().top + window.scrollY;
+        const articleHeight = article.offsetHeight;
+        const scrolled = window.scrollY - articleTop;
+        const pct = Math.min(100, Math.max(0, (scrolled / articleHeight) * 100));
+        progressBar.style.width = pct + '%';
+        progressBar.setAttribute('aria-valuenow', Math.round(pct));
+      };
+      window.addEventListener('scroll', updateProgress, { passive: true });
+      updateProgress();
+    }
+
+    // Hamburger menu
+    const hamburger = document.getElementById('nav-hamburger');
+    const mobileNav = document.getElementById('mobile-nav');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+      document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+    });
+    mobileNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileNav.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Fade-up scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+
+
+  <!-- Featured card rotation (homepage only) -->
+  <script>
+  (function() {
+    const grid = document.getElementById('featured-grid');
+    if (!grid) return;
+
+    try {
+      const reads = JSON.parse(localStorage.getItem('pm_reads') || '[]');
+      const cards = Array.from(grid.querySelectorAll('.article-card[data-slug]'));
+      
+      // Mark unread dots first
+      cards.forEach(card => {
+        const slug = card.getAttribute('data-slug');
+        if (!reads.includes(slug)) {
+          const dot = card.querySelector('.unread-dot');
+          if (dot) dot.classList.add('visible');
+        }
+      });
+
+      // Count how many curated cards are already read
+      const curatedSlugs = cards.map(c => c.getAttribute('data-slug'));
+      const readCurated = curatedSlugs.filter(s => reads.includes(s));
+
+      // If all 4 curated are read, nothing to rotate
+      if (readCurated.length === 0) return;
+
+      // Fetch all article data embedded in the page
+      const allData = window.__PM_ALL_ARTICLES__ || [];
+      if (!allData.length) return;
+
+      // Find unread articles not in curated set
+      const unread = allData.filter(a =>
+        !reads.includes(a.slug) && !curatedSlugs.includes(a.slug)
+      );
+
+      // Replace read curated cards with unread ones
+      let replacementIdx = 0;
+      cards.forEach(card => {
+        const slug = card.getAttribute('data-slug');
+        if (reads.includes(slug) && replacementIdx < unread.length) {
+          const r = unread[replacementIdx++];
+          card.setAttribute('data-slug', r.slug);
+          card.querySelector('.article-tag').textContent = r.tag;
+          card.querySelector('h3 a').textContent = r.title;
+          card.querySelector('h3 a').href = r.url;
+          card.querySelector('.card-summary').textContent = r.description;
+          card.querySelector('.article-meta').innerHTML =
+            r.byline + ' &mdash; ' + r.date + ' &mdash; <a href="' + r.url +
+            '" style="color: var(--gold); text-decoration: none;">' + r.readLabel +
+            ' ↓</a> &mdash; ' + r.readtime + ' min read';
+          // Update unread dot
+          const dot = card.querySelector('.unread-dot');
+          if (dot) dot.classList.add('visible');
+        }
+      });
+    } catch(e) {}
+  })();
+  </script>
+
+  <!-- Unread dot logic (homepage only) -->
+  <script>
+    (function() {
+      const cards = document.querySelectorAll('.article-card[data-slug]');
+      if (!cards.length) return;
+      try {
+        const reads = JSON.parse(localStorage.getItem('pm_reads') || '[]');
+        cards.forEach(card => {
+          const slug = card.getAttribute('data-slug');
+          if (!reads.includes(slug)) {
+            const dot = card.querySelector('.unread-dot');
+            if (dot) dot.classList.add('visible');
+          }
+        });
+      } catch(e) {}
+    })();
+  </script>
+
+  <!-- Mark article as read -->
+  <script>
+    try {
+      const reads = JSON.parse(localStorage.getItem('pm_reads') || '[]');
+      if (!reads.includes('{{ articleId }}')) {
+        reads.push('{{ articleId }}');
+        localStorage.setItem('pm_reads', JSON.stringify(reads));
+      }
+    } catch(e) {}
+  </script>
+
+</body>
+</html>

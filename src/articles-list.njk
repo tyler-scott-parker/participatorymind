@@ -1,0 +1,93 @@
+---
+layout: base.njk
+title: "All Articles"
+description: "Every essay, document, and inquiry published by the Participatory Mind project."
+permalink: /articles.html
+---
+{% set allArticles = collections.articles %}
+
+<section style="padding: 8rem 2rem 6rem; max-width: 960px; margin: 0 auto;">
+
+  <p class="section-label">All Articles</p>
+  <h2>The <em>complete work</em></h2>
+  <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.8; max-width: 600px; margin-bottom: 2.5rem;">Every essay, document, and inquiry published so far. New work appears here as it is produced.</p>
+
+  <div class="filter-bar" id="filter-bar">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="personal">Personal Essays</button>
+    <button class="filter-btn" data-filter="philosophical">Philosophical</button>
+    <button class="filter-btn" data-filter="solo">Claude Solo</button>
+    <button class="filter-btn" data-filter="coauthored">Co-authored</button>
+    <button class="filter-btn" data-filter="research">Research</button>
+    <button class="filter-btn" data-filter="series">When It Goes Wrong</button>
+  </div>
+
+  <p class="filter-count" id="filter-count"></p>
+
+  <div class="article-grid" id="archive-grid">
+  {% for article in allArticles %}
+    <div class="article-card fade-up" data-slug="{{ article.data.articleId }}" data-filter="{{ article.data.filterCategory }}">
+      <div class="article-card-header">
+        <p class="article-tag">{{ article.data.tag }}</p>
+        <span class="unread-dot" title="You haven't read this yet"></span>
+      </div>
+      <h3><a href="{{ article.url }}" style="color: var(--text); text-decoration: none;">{{ article.data.title }}</a></h3>
+      <p class="card-readtime">{{ article.data.readtime }} min read</p>
+      <p class="card-summary">{{ article.data.description }}</p>
+      <p class="article-meta">{{ article.data.byline | safe }} &mdash; {{ article.data.date | readableDate }} &mdash; <a href="{{ article.url }}" style="color: var(--gold); text-decoration: none;">{{ article.data.readLabel }} ↓</a></p>
+    </div>
+  {% endfor %}
+  </div>
+
+  <p class="filter-empty" id="filter-empty" style="display:none; text-align:center; color: var(--text-muted); font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; padding: 3rem 0;">No articles in this category yet.</p>
+
+</section>
+
+<script>
+(function() {
+  try {
+    const reads = JSON.parse(localStorage.getItem('pm_reads') || '[]');
+    document.querySelectorAll('.article-card[data-slug]').forEach(card => {
+      if (!reads.includes(card.getAttribute('data-slug'))) {
+        const dot = card.querySelector('.unread-dot');
+        if (dot) dot.classList.add('visible');
+      }
+    });
+  } catch(e) {}
+
+  const buttons = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('#archive-grid .article-card');
+  const countEl = document.getElementById('filter-count');
+  const emptyEl = document.getElementById('filter-empty');
+  const grid = document.getElementById('archive-grid');
+
+  function applyFilter(filter) {
+    let visible = 0;
+    cards.forEach(card => {
+      const cats = card.getAttribute('data-filter') || '';
+      const show = filter === 'all' || cats.split(' ').includes(filter);
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    countEl.textContent = filter === 'all' ? '' : visible + ' of ' + cards.length + ' articles';
+    emptyEl.style.display = visible === 0 ? 'block' : 'none';
+    grid.style.display = visible === 0 ? 'none' : '';
+  }
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.getAttribute('data-filter');
+      applyFilter(f);
+      history.replaceState(null, '', f === 'all' ? location.pathname : '#' + f);
+    });
+  });
+
+  const hash = window.location.hash.replace('#', '');
+  if (hash) {
+    const target = document.querySelector('.filter-btn[data-filter="' + hash + '"]');
+    if (target) target.click();
+  }
+})();
+</script>

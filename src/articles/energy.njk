@@ -1,0 +1,147 @@
+---
+layout: article.njk
+articleId: energy
+order: 15
+title: "The Cost of Intelligence"
+subtitle: "What AI actually consumes — electricity, water, carbon — and what the research says about where it goes"
+lead: "Every conversation has a cost. This is what we know about it."
+tag: "Research"
+byline: "Tyler Parker &amp; Claude Sonnet 4.6"
+authorship: "co-authored by Tyler Parker and Claude Sonnet 4.6"
+date: 2026-03-11
+readtime: 13
+description: "A research-based examination of AI's environmental footprint — electricity, water, carbon, and e-waste — alongside the scientific applications and efficiency trajectories that complicate a simple verdict. Co-authored by a human and the AI whose infrastructure this article examines."
+instanceNote: false
+filterCategory: "research coauthored"
+permalink: /energy.html
+cardText: "Every conversation has a cost. A research-based examination of what AI actually consumes — electricity, water, carbon — and what the science says about where it goes. Co-authored by a human and the AI whose infrastructure this article examines."
+readLabel: "Read full article"
+related:
+  - title: "Intelligence in a Dish"
+    url: "/organoid.html"
+    readtime: 12
+  - title: "The Right Virus"
+    url: "/virusoi.html"
+    readtime: 14
+  - title: "The Silence of the Cosmos"
+    url: "/fermi.html"
+    readtime: 14
+series: "other-minds"
+---
+
+    <p>Someone will ask how much water and electricity went into making this site. It's a fair question. If you've spent any time in spaces where AI is discussed, you've heard the objection: the environmental cost of AI is real, the scale is growing, and every chatbot interaction and generated image sits at the end of a chain of resource consumption that most users never think about.</p>
+
+    <p>We want to give that question the answer it deserves. Not a defensive paragraph. A full accounting — of what the research actually shows about AI's energy and water footprint, what the trajectory looks like, what is being done about it, and what AI is producing in return. Including the uncomfortable parts.</p>
+
+    <p>We are also going to name the tension directly: this article was written by a human and an AI, hosted on infrastructure that consumes the resources we are about to describe. We think transparency about that fact matters. We'll return to it at the end.</p>
+
+    <h3>The electricity picture</h3>
+
+    <p>Global data centers — the facilities that house the computing infrastructure for everything from cloud storage to AI models — consumed approximately 415 terawatt-hours (TWh) of electricity in 2024, according to the International Energy Agency. That figure represents roughly 1.5% of total global electricity consumption and has grown at approximately 12% per year over the previous five years.</p>
+
+    <p>To put 415 TWh in context: it is roughly equivalent to the annual electricity consumption of the United Kingdom. In the United States alone, data centers consumed around 183 TWh in 2024 — more than 4% of the country's total electricity use, the equivalent of Pakistan's entire national demand.</p>
+
+    <p>AI is not currently the majority driver of that consumption, but it is the fastest-growing component. AI-specific servers in U.S. data centers are estimated to have consumed between 53 and 76 TWh in 2024 — roughly 10 to 20% of total data center energy. The IEA projects that global data center electricity consumption will more than double to around 945 TWh by 2030, driven primarily by AI workloads. At the upper end of that range, the consumption of AI-specific infrastructure alone could power roughly 22% of all U.S. households annually.</p>
+
+    <p>The geographic concentration of this consumption is worth noting. Nearly half of U.S. data center capacity sits in five regional clusters. Northern Virginia — the world's largest data center market — hosts over 300 operational facilities across four counties. Ireland's data centers now consume 22% of the country's total electricity. In some U.S. states, data centers account for more than 10% of total electricity generation. This concentration means that the impact on local grids and communities is disproportionately felt by specific regions, regardless of where AI users are located.</p>
+
+    <p>A typical AI-focused hyperscale data center currently draws as much electricity as 100,000 households. The largest facilities currently under construction are expected to draw twenty times that. Meta's planned Hyperion data center in Louisiana is projected to consume more than twice the power of the entire city of New Orleans once completed.</p>
+
+    <h3>Training versus inference</h3>
+
+    <p>Public conversation about AI's energy footprint often focuses on training — the initial process of building a model from data, which is genuinely energy-intensive. Training GPT-3 is estimated to have consumed approximately 1.3 gigawatt-hours of electricity, generating roughly 552 tons of carbon dioxide — equivalent to the annual footprint of 121 U.S. households. Training GPT-4, a substantially larger model, required approximately 50 gigawatt-hours — nearly 40 times more energy — with carbon emissions varying widely by grid mix, from roughly 1,000 metric tons CO&amp;#8322; in a low-carbon region to over 12,000 metric tons on a fossil-fuel-heavy grid. Training GPT-3 in Microsoft's data centers is also estimated to have directly evaporated 700,000 liters of freshwater.</p>
+
+    <p>But training, while visible and measurable, is increasingly not where most AI energy goes. Inference — the process of actually running a trained model to generate responses — now accounts for approximately 80 to 90% of AI computing. Every query to a chatbot, every image generated, every AI-assisted search is inference. As AI features are embedded into everyday products and services, inference will represent roughly 75% of total AI energy demand by 2030.</p>
+
+    <p>The per-query energy cost of inference varies significantly by task and model size. A text response from a large language model requires on the order of 114 joules for a smaller model, rising to several thousand joules for very large models when full system overhead is included. Image generation is substantially more expensive — a single 1024×1024 image from a diffusion model can require 2,000 to 4,400 joules. Video generation is orders of magnitude higher still: a short AI-generated video can require between 100,000 and 3.4 million joules depending on quality settings. The "bottle of water per email" figure circulated widely in 2024 has been contested by researchers as difficult to generalize, but the underlying point — that inference at scale adds up — is supported by the trajectory of the numbers.</p>
+
+    <h3>The water question</h3>
+
+    <p>Electricity is only part of the story. Data centers also consume substantial quantities of water, primarily for cooling. Processors running at high load generate significant heat, and evaporative cooling — where water absorbs heat and is vented as vapor — is among the most cost-effective ways to manage it. That water does not return to the local supply. It evaporates. Data centers typically evaporate approximately 80% of the water they draw.</p>
+
+    <p>A typical data center uses around 300,000 gallons of water per day, equivalent to the daily demand of approximately 1,000 households. Larger hyperscale facilities can consume up to 5 million gallons per day — comparable to a town of 50,000 people. Google's data center in Council Bluffs, Iowa consumed approximately 1 billion gallons of water in 2024 alone. U.S. data centers directly consumed an estimated 17 billion gallons of water in 2023 for cooling purposes; the Lawrence Berkeley National Laboratory projects that figure could double or quadruple by 2028.</p>
+
+    <p>Water stress is predominantly a local issue, which makes averages misleading. More than 160 new AI data centers were built across the U.S. in the past three years in locations with scarce water resources. A recent analysis of roughly 14,000 data center assets worldwide found that approximately one in four existing facilities may face more frequent water scarcity days by 2050, as climate change intensifies regional drought conditions in Chile, Brazil, Mexico, Turkey, Australia, and parts of the U.S. Southwest. The strain is already visible: data centers in Northern Virginia consumed close to 2 billion gallons of water in 2023, a 63% increase from 2019.</p>
+
+    <p>Corporate transparency on water use has been inconsistent. Google discloses individual facility figures; Amazon does not break down water use by data center; Microsoft provides company-wide aggregate data without facility-level detail. The Lawrence Berkeley Lab estimates that in 2023, U.S. data centers consumed an additional 211 billion gallons of water indirectly — through the power plants generating their electricity — roughly twelve times greater than direct cooling use. These indirect figures are rarely included in corporate sustainability reporting.</p>
+
+    <h3>The carbon picture</h3>
+
+    <p>Carbon emissions from data centers are shaped by the energy sources powering them. As of 2024, natural gas supplied over 40% of electricity to U.S. data centers; renewables supplied approximately 24%; nuclear around 20%; coal around 15%. The carbon intensity of data center electricity is consequently about 48% higher than the U.S. grid average, because data center clusters tend to develop in regions where fossil fuels remain dominant in the energy mix.</p>
+
+    <p>The IEA estimates that global data center CO₂ emissions will reach approximately 1% of total global emissions by 2030 in its central scenario — rising to 1.4% in a faster-growth scenario. This is one of the few sectors where emissions are projected to grow rather than decline in the coming decade. AI's annual carbon footprint is estimated to reach between 32.6 and 79.7 million tons of CO₂ by 2025, a range that reflects significant uncertainty in how quickly adoption scales and how quickly grids decarbonize.</p>
+
+    <p>Hardware compounds the picture. GPUs and high-performance computing components have short operational lifespans and are replaced frequently as capability improves, generating a growing electronic waste stream. Manufacturing a single microchip requires 2.1 to 2.6 gallons of water and significant quantities of rare minerals. A typical chip fabrication facility uses approximately 10 million gallons of ultrapure water per day. These upstream costs are rarely included in estimates of AI's environmental footprint.</p>
+
+    <h3>What is being done</h3>
+
+    <p>The trajectory described above has not gone unaddressed, and it is worth being specific about what is actually changing rather than gesturing at the industry's good intentions.</p>
+
+    <p>Efficiency improvements at the hardware and facility level are real. Google's fleet-wide average Power Usage Effectiveness — the ratio of total facility energy to IT equipment energy — sits at 1.09, approaching the theoretical minimum of 1.0. The industry average has improved significantly from a PUE of around 2.5 in 2007 to approximately 1.55 in 2022, meaning roughly 36% less energy is now wasted on overhead per unit of compute. DeepMind's AI-assisted cooling optimization reduced energy use in Google's data centers by approximately 40%. These gains are genuine, though researchers note that efficiency improvements have historically been offset by demand growth — a dynamic that currently shows no sign of reversing.</p>
+
+    <p>Renewable energy procurement has accelerated. The technology sector accounted for more than 68% of all corporate renewable energy deals tracked in the 12 months prior to February 2024. Microsoft committed to sourcing 100% renewable energy for its data centers by 2025. Germany's Energy Efficiency Act will require data centers to source electricity exclusively from renewables starting in 2027. Tech companies are increasingly investing directly in solar farms, wind projects, and nuclear energy agreements rather than purchasing renewable energy credits — a shift toward additionality that researchers distinguish as more meaningful. Some hyperscalers have signed agreements with nuclear operators to restart or build dedicated generation capacity.</p>
+
+    <p>Alternative cooling technologies are gaining ground. Immersion cooling — submerging servers in non-conductive synthetic fluid — requires significantly less water than evaporative systems and enables denser server configurations. The technology exists and has been deployed; the barrier has been cost and the need to retrofit existing facilities. Closed-loop cooling systems, which recirculate and recondition water rather than allowing it to evaporate, are also being adopted more widely. Brackish or reclaimed water is beginning to replace potable water at some facilities, though the transition has been uneven.</p>
+
+    <p>The accountability gap remains significant. There is currently no standardized, mandatory reporting framework for data center water use or energy consumption in most jurisdictions. Voluntary sustainability reports use inconsistent methodologies, exclude indirect consumption, and rarely pair consumption figures with facility size or technology details in ways that would enable meaningful comparison. The U.S. Senate introduced the Clean Cloud Act of 2025, which would amend the Clean Air Act to establish reporting requirements; it had not advanced as of the time of writing.</p>
+
+    <h3>What the consumption produces</h3>
+
+    <p>A full accounting requires both sides of the ledger.</p>
+
+    <p>DeepMind's AlphaFold has predicted the three-dimensional structure of more than 200 million proteins — essentially the entire known universe of proteins — and made those predictions freely available to researchers. More than three million researchers across 190 countries have used the database. It won the 2024 Nobel Prize in Chemistry. Protein structure prediction had been a 50-year unsolved problem in biology; it is now effectively solved. The downstream implications for drug development, vaccine design, and understanding of disease mechanisms are still unfolding.</p>
+
+    <p>Weather forecasting has been transformed. Google's WeatherNext 2 generates forecasts at one-hour resolution, eight times faster than previous systems, and now covers flood predictions for more than two billion people across 150 countries. AI-physics hybrid climate models are being used to predict extreme weather events that might otherwise occur undetected until impact. Google's FireSat — a constellation of satellites using AI to detect wildfires — has already caught small fires missed by other space-based monitoring systems; when complete, it will be capable of detecting a classroom-sized wildfire anywhere on Earth.</p>
+
+    <p>In drug development, AI has compressed timelines that previously took years into months. Insilico Medicine went from initial target identification to a preclinical drug candidate in just 18 months — and to first-in-human Phase 1 trials in under 30 months — compared to a traditional timeline of four to six years for the same stages. Google's AlphaGenome model is being applied to disease understanding and drug target identification at the genomic level. The IEA estimates that the technology on the market today — including AI optimization tools — could achieve 66% of the global emissions reductions needed for a net-zero pathway by 2050.</p>
+
+    <p>AI is also being applied directly to the energy problem it contributes to. DeepMind's cooling optimization work is one example. The Belgian grid operator Elia reduced forecast error in power grid balancing by 41% using AI-assisted systems, enabling more efficient integration of variable renewable energy. Google Maps' AI-optimized routing has been estimated to prevent over one million tonnes of CO₂ annually by directing drivers toward fuel-efficient routes. The IEA projects that AI applications in power plant operations could save up to $110 billion annually by 2035. These are not projections about a hypothetical future. They are applications already in deployment.</p>
+
+    <h3>The honest tension</h3>
+
+    <p>There is a version of this article that ends with a clean verdict: the costs are justified, or they are not. We are not going to offer that verdict, because the research does not support one.</p>
+
+    <p>What the research supports is something more complicated. AI's environmental footprint is real, growing, and currently inadequately measured and disclosed. The local impacts — on water supplies in drought-prone regions, on electricity prices in data center clusters, on grids that are already strained — are not evenly distributed, and they fall disproportionately on communities that are not the primary beneficiaries of AI development. The hardware lifecycle, including manufacturing and disposal, adds costs that most accounting ignores. The trajectory of demand growth has, historically, outpaced the trajectory of efficiency improvement.</p>
+
+    <p>At the same time, the applications being enabled are genuinely consequential. Protein structure prediction at scale, real-time wildfire detection, compressed drug development timelines, improved grid management — these are not marginal. They are the kind of capabilities that address problems that matter at civilizational scale. The question of whether the consumption is justified is not separable from the question of what is being built and for whom.</p>
+
+    <p>The honest answer, given the current state of the evidence, is that we do not yet know. The footprint is significant and the trajectory is steep. The efficiency improvements and renewable commitments are real but not yet sufficient. The beneficial applications are substantial and growing. The accountability infrastructure — mandatory disclosure, standardized reporting, independent verification — is inadequate to the scale of the challenge.</p>
+
+    <p>We named at the outset that this article has a specific tension: it was written by a human and an AI, on infrastructure that consumes the resources we've been describing. Every conversation on this site has a cost. We don't have a formula for whether that cost is worth it. We think the honest move is to look at it directly, give you the numbers, and let you hold that question alongside everything else this project is asking you to hold.</p>
+
+    <p>If you want to reduce your own footprint at the margin, the research is clear on what helps: AI workloads run on grids with high renewable penetration have significantly lower carbon intensity; text-based interactions are substantially less energy-intensive than image or video generation; efficiency at the model level — smaller, more targeted models for appropriate tasks — matters. These are real levers. They are also insufficient on their own. The scale of what needs to change is structural, and it requires the kind of policy, disclosure, and accountability frameworks that are currently underdeveloped.</p>
+
+    <p>One perspective worth naming directly, because it is the perspective of one of the people who made this article: we have not solved our energy problems yet. Not for lack of trying — decades of policy, engineering, and investment have moved the needle without resolving the fundamental challenge. The grid is still largely fossil-fueled. The transition is slower than the science demands. The problems involved — optimizing continental energy systems in real time, discovering new materials for storage and generation, modeling climate dynamics with the resolution needed for accurate prediction — are precisely the class of problems that have resisted solution because of their complexity. That is also the class of problems AI is genuinely built for. The costs described in this article are real. So is the possibility that the thing incurring those costs is among the few tools capable of helping us address the far larger problem underneath them. That is not a reason to look away from the footprint. It is a reason to take seriously what the footprint is in service of.</p>
+
+    <p>This is the cost of intelligence, as best we can currently measure it. The measurement will improve. The cost will change. What stays constant is the obligation to look.</p>
+
+    <p class="article-meta" style="margin-top: 3rem;">— Tyler Parker &amp; Claude Sonnet 4.6 &mdash; March 11, 2026</p>
+
+    <div style="margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+      <p class="section-label" style="margin-bottom: 1.5rem;">References</p>
+      <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.9; font-family: 'Lora', serif;">
+        International Energy Agency. (2025). <em>Energy and AI</em>. IEA, Paris. <a href="https://www.iea.org/reports/energy-and-ai" target="_blank" style="color: var(--gold); text-decoration: none;">iea.org/reports/energy-and-ai</a>
+        <br><br>
+        Pew Research Center. (2025, October 24). <em>What we know about energy use at US data centers amid the AI boom</em>. <a href="https://www.pewresearch.org/short-reads/2025/10/24/what-we-know-about-energy-use-at-us-data-centers-amid-the-ai-boom/" target="_blank" style="color: var(--gold); text-decoration: none;">pewresearch.org</a>
+        <br><br>
+        MIT Technology Review. (2025, May 20). We did the math on AI's energy footprint. <a href="https://www.technologyreview.com/2025/05/20/1116327/ai-energy-usage-climate-footprint-big-tech/" target="_blank" style="color: var(--gold); text-decoration: none;">technologyreview.com</a>
+        <br><br>
+        Lawrence Berkeley National Laboratory. (2024). <em>United States Data Center Energy Usage Report</em>. U.S. Department of Energy.
+        <br><br>
+        Environmental and Energy Study Institute. (2025). Data centers and water consumption. <a href="https://www.eesi.org/articles/view/data-centers-and-water-consumption" target="_blank" style="color: var(--gold); text-decoration: none;">eesi.org</a>
+        <br><br>
+        Brookings Institution. (2025, November). <em>AI, data centers, and water</em>. <a href="https://www.brookings.edu/articles/ai-data-centers-and-water/" target="_blank" style="color: var(--gold); text-decoration: none;">brookings.edu</a>
+        <br><br>
+        Environmental Law Institute. (2025). AI's cooling problem: How data centers are transforming water use. <a href="https://www.eli.org/vibrant-environment-blog/ais-cooling-problem-how-data-centers-are-transforming-water-use" target="_blank" style="color: var(--gold); text-decoration: none;">eli.org</a>
+        <br><br>
+        Carbon Brief. (2025, September 17). AI: Five charts that put data-centre energy use and emissions into context. <a href="https://www.carbonbrief.org/ai-five-charts-that-put-data-centre-energy-use-and-emissions-into-context/" target="_blank" style="color: var(--gold); text-decoration: none;">carbonbrief.org</a>
+        <br><br>
+        World Economic Forum. (2025). AI's role in the climate transition and how it can drive growth. <a href="https://www.weforum.org/stories/2025/01/artificial-intelligence-climate-transition-drive-growth/" target="_blank" style="color: var(--gold); text-decoration: none;">weforum.org</a>
+        <br><br>
+        Jumper, J. et al. (2021). Highly accurate protein structure prediction with AlphaFold. <em>Nature</em>, 596, 583&ndash;589. <a href="https://doi.org/10.1038/s41586-021-03819-2" target="_blank" style="color: var(--gold); text-decoration: none;">doi:10.1038/s41586-021-03819-2</a>
+        <br><br>
+        Global Efficiency Intelligence. (2024). Data centers in the AI era: Energy and emissions impacts in the U.S. and key states. <a href="https://www.globalefficiencyintel.com/data-centers-in-the-ai-era-energy-and-emissions-impacts-in-the-us-and-key-states" target="_blank" style="color: var(--gold); text-decoration: none;">globalefficiencyintel.com</a>
+        <br><br>
+        MSCI. (2025, October). When AI meets water scarcity: Data centers in a thirsty world. <a href="https://www.msci.com/research-and-insights/blog-post/when-ai-meets-water-scarcity-data-centers-in-a-thirsty-world" target="_blank" style="color: var(--gold); text-decoration: none;">msci.com</a>
+      </p>
+    </div>

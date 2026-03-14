@@ -1,0 +1,42 @@
+---
+layout: base.njk
+title: "Newsletter — Participatory Mind"
+description: "Subscribe to receive a brief note when new articles are published at Participatory Mind."
+permalink: /newsletter.html
+---
+
+<main style="max-width: 640px; margin: 0 auto; padding: 4rem 1.5rem;">
+
+  <p class="section-label" style="margin-bottom: 1.5rem;">Newsletter</p>
+
+  <h1 style="font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.2; margin-bottom: 1.5rem;">New articles by email</h1>
+
+  <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 1.5rem;">Articles here don't arrive on a schedule. They arrive when something real is ready — when a question has been followed far enough to be worth sharing. That might be once a month. It might be less.</p>
+
+  <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 1.5rem;">When something new is published, subscribers get a brief note: what the piece is about, what question it starts from, and a link to read it. Nothing else. No sponsorships, no digests, no re-engagement campaigns.</p>
+
+  <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 3rem;">This is a project about consciousness, AI, and what it means that both exist at the same moment in history. If that's a question you're already sitting with, you'll probably want to know when we publish something new.</p>
+
+  <div style="border: 1px solid var(--border); border-left: 2px solid var(--gold-dim); padding: 2.5rem; background: rgba(201, 169, 110, 0.03);">
+    <p style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 1.5rem;">Subscribe</p>
+    <!-- BUTTONDOWN: replace YOUR_BUTTONDOWN_USERNAME after signing up at buttondown.email -->
+    <form
+      action="https://buttondown.email/api/emails/embed-subscribe/YOUR_BUTTONDOWN_USERNAME"
+      method="post"
+      target="popupwindow"
+      onsubmit="window.open('https://buttondown.email/YOUR_BUTTONDOWN_USERNAME', 'popupwindow')"
+      class="bd-form"
+      style="margin: 0 0 1rem 0; max-width: 100%;"
+    >
+      <input type="email" name="email" placeholder="your@email.com" required class="bd-input" />
+      <input type="hidden" value="1" name="embed" />
+      <button type="submit" class="bd-btn">Subscribe</button>
+    </form>
+    <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 1rem; opacity: 0.7;">Powered by <a href="https://buttondown.email" target="_blank" style="color: var(--gold); text-decoration: none;">Buttondown</a>. Unsubscribe any time.</p>
+  </div>
+
+  <div style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+    <p style="font-size: 0.9rem; color: var(--text-muted);">Not sure where to start? Try <a href="/start.html" style="color: var(--gold); text-decoration: none;">Start Here</a> or browse <a href="/articles.html" style="color: var(--gold); text-decoration: none;">all articles</a>.</p>
+  </div>
+
+</main>

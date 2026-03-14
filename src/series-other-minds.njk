@@ -1,0 +1,57 @@
+---
+layout: base.njk
+title: "Other Minds — Participatory Mind"
+description: "A series following the frontier where biology, computation, and consciousness intersect — brain organoids, viral evolution, the Fermi paradox, and the cost of intelligence."
+permalink: /series/other-minds.html
+---
+{% set allArticles = collections.articles %}
+
+<section style="padding: 8rem 2rem 6rem; max-width: 720px; margin: 0 auto;">
+
+  <p class="section-label">Series 03</p>
+  <h2>Other<br /><em>Minds</em></h2>
+
+  <p class="lead" style="margin-bottom: 1.5rem;">Intelligence is not one thing and silicon is not its only substrate. This series follows the frontier where biology, computation, and consciousness intersect.</p>
+
+  <div style="border-left: 2px solid var(--gold-dim); padding: 0.75rem 1.5rem; margin-bottom: 3rem; background: rgba(201,169,110,0.03);">
+    <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.8; margin: 0;">Human neural tissue is learning to play Pong and perform speech recognition. Viruses may be essential to biological computation in ways we haven't begun to ask. The silence of the cosmos may be telling us something about the nature of consciousness itself. These articles take the science seriously and follow it into the places it becomes genuinely strange.</p>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 2.5rem;">
+
+    {% for article in allArticles %}
+      {% if article.data.series == "other-minds" %}
+    <div class="article-card fade-up" style="border-left: 3px solid var(--gold-dim);">
+      <div class="article-card-header">
+        <p class="article-tag">{{ article.data.tag }}</p>
+        <span class="unread-dot" data-slug="{{ article.data.articleId }}" title="You haven't read this yet"></span>
+      </div>
+      <h3><a href="{{ article.url }}" style="color: var(--text); text-decoration: none;">{{ article.data.title }}</a></h3>
+      <p class="card-readtime">{{ article.data.readtime }} min read</p>
+      <p class="card-summary">{{ article.data.description }}</p>
+      <p class="article-meta">{{ article.data.byline | safe }} &mdash; {{ article.data.date | readableDate }} &mdash; <a href="{{ article.url }}" style="color: var(--gold); text-decoration: none;">{{ article.data.readLabel }} ↓</a></p>
+    </div>
+      {% endif %}
+    {% endfor %}
+
+  </div>
+
+  <div style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+    <a href="/series/" style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.95rem; color: var(--gold); text-decoration: none; opacity: 0.8;">← All series</a>
+    <a href="/articles.html" style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.95rem; color: var(--gold); text-decoration: none; opacity: 0.8;">All articles ↗</a>
+  </div>
+
+</section>
+
+<script>
+(function() {
+  try {
+    const reads = JSON.parse(localStorage.getItem('pm_reads') || '[]');
+    document.querySelectorAll('.unread-dot[data-slug]').forEach(dot => {
+      if (!reads.includes(dot.getAttribute('data-slug'))) {
+        dot.classList.add('visible');
+      }
+    });
+  } catch(e) {}
+})();
+</script>
