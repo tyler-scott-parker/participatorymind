@@ -58,7 +58,7 @@ permalink: /articles.html
 
   <div class="article-grid" id="archive-grid" style="margin-top: 1.5rem;">
   {% for article in allArticles %}
-    <div class="article-card fade-up" data-slug="{{ article.data.articleId }}" data-filter="{{ article.data.series }}">
+    <div class="article-card fade-up" data-slug="{{ article.data.articleId }}" data-filter="{{ article.data.series }}" data-date="{{ article.data.date | isoDate }}">
       <div class="article-card-header">
         <p class="article-tag">{{ article.data.tag }}</p>
         <span class="unread-dot" title="You haven't read this yet"></span>
@@ -66,6 +66,7 @@ permalink: /articles.html
       <h3><a href="{{ article.url }}" style="color: var(--text); text-decoration: none;">{{ article.data.title }}</a></h3>
       <p class="card-readtime">{{ article.data.readtime }} min read</p>
       <p class="card-summary">{{ article.data.description }}</p>
+      {% if article.data.claim %}<p class="card-claim">{{ article.data.claim }}</p>{% endif %}
       <p class="article-meta">{{ article.data.byline | safe }} &mdash; {{ article.data.date | readableDate }} &mdash; <a href="{{ article.url }}" style="color: var(--gold); text-decoration: none;">{{ article.data.readLabel }} ↓</a></p>
     </div>
   {% endfor %}
@@ -126,9 +127,12 @@ permalink: /articles.html
   try {
     const reads = JSON.parse(localStorage.getItem('pm_reads') || '[]');
     document.querySelectorAll('.article-card[data-slug]').forEach(card => {
-      if (!reads.includes(card.getAttribute('data-slug'))) {
+      const slug = card.getAttribute('data-slug');
+      if (!reads.includes(slug)) {
         const dot = card.querySelector('.unread-dot');
         if (dot) dot.classList.add('visible');
+      } else {
+        card.classList.add('read');
       }
     });
   } catch(e) {}

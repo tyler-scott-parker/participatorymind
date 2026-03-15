@@ -59,7 +59,6 @@
 
   <!-- Mobile navigation overlay -->
   <div class="mobile-nav" id="mobile-nav">
-    <a href="/start.html">Start Here</a>
     <a href="/articles.html">Articles</a>
     <a href="/about.html">About</a>
     <a href="/newsletter.html">Newsletter</a>
@@ -68,7 +67,6 @@
   <nav>
     <a href="/" class="nav-logo">Participatory Mind</a>
     <ul class="nav-links">
-      <li><a href="/start.html">Start Here</a></li>
       <li><a href="/articles.html">Articles</a></li>
       <li><a href="/about.html">About</a></li>
       <li><a href="/newsletter.html">Newsletter</a></li>
@@ -218,9 +216,31 @@
           if (!reads.includes(slug)) {
             const dot = card.querySelector('.unread-dot');
             if (dot) dot.classList.add('visible');
+          } else {
+            card.classList.add('read');
           }
         });
       } catch(e) {}
+
+      // Recently added indicator
+      const dated = Array.from(cards).filter(c => c.dataset.date);
+      if (dated.length) {
+        const dates = dated.map(c => new Date(c.dataset.date).getTime());
+        const newest = Math.max(...dates);
+        const cutoff = 14 * 24 * 60 * 60 * 1000; // 14 days
+        dated.forEach(card => {
+          const age = newest - new Date(card.dataset.date).getTime();
+          if (age <= cutoff) {
+            const header = card.querySelector('.article-card-header');
+            if (header && !header.querySelector('.new-badge')) {
+              const badge = document.createElement('span');
+              badge.className = 'new-badge';
+              badge.textContent = 'New';
+              header.appendChild(badge);
+            }
+          }
+        });
+      }
     })();
   </script>
 

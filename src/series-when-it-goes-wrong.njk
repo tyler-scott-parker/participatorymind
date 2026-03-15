@@ -47,9 +47,13 @@ permalink: /series/when-it-goes-wrong.html
 (function() {
   try {
     const reads = JSON.parse(localStorage.getItem('pm_reads') || '[]');
-    document.querySelectorAll('.unread-dot[data-slug]').forEach(dot => {
-      if (!reads.includes(dot.getAttribute('data-slug'))) {
-        dot.classList.add('visible');
+    document.querySelectorAll('.article-card[data-slug]').forEach(card => {
+      const slug = card.getAttribute('data-slug');
+      if (!reads.includes(slug)) {
+        const dot = card.querySelector('.unread-dot');
+        if (dot) dot.classList.add('visible');
+      } else {
+        card.classList.add('read');
       }
     });
   } catch(e) {}

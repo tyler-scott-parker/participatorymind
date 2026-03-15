@@ -366,7 +366,46 @@
       line-height: 1.75;
       color: var(--text-muted);
       flex-grow: 1;
+      margin-bottom: 0.75rem;
+    }
+
+    .article-card p.card-claim {
+      font-family: 'Lora', serif;
+      font-size: 0.82rem;
+      font-style: italic;
+      line-height: 1.7;
+      color: var(--text);
+      opacity: 0.75;
+      border-left: 2px solid var(--gold-dim);
+      padding-left: 0.75rem;
       margin-bottom: 1rem;
+    }
+
+    .article-card.read {
+      opacity: 0.55;
+      transition: opacity 0.2s;
+    }
+    .article-card.read:hover {
+      opacity: 1;
+    }
+    .article-card.read h3::after {
+      content: ' ✓';
+      font-family: 'Lora', serif;
+      font-size: 0.75rem;
+      color: var(--gold);
+      opacity: 0.6;
+      font-style: normal;
+    }
+
+    .new-badge {
+      font-family: 'Lora', serif;
+      font-size: 0.68rem;
+      font-style: italic;
+      color: var(--gold);
+      border: 1px solid var(--gold-dim);
+      padding: 0.1rem 0.45rem;
+      letter-spacing: 0.05em;
+      opacity: 0.85;
     }
 
     .article-card .article-meta { margin-top: auto; font-size: 0.72rem; }
@@ -980,6 +1019,34 @@
     .comments-inner {
       border-top: 1px solid var(--border);
       padding-top: 3rem;
+    }
+
+    /* Series progress indicator */
+    .series-progress {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .series-progress-bar {
+      flex: 1;
+      height: 2px;
+      background: var(--border);
+      max-width: 120px;
+    }
+    .series-progress-fill {
+      height: 100%;
+      background: var(--gold);
+      opacity: 0.6;
+      transition: width 0.4s ease;
+      width: 0%;
+    }
+    .series-progress-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      white-space: nowrap;
     }
 
     /* Series badge */

@@ -46,7 +46,17 @@ ogType: article
   <p class="section-label">{{ tag }}</p>
   <h2>{{ title }}<br /><em>{{ subtitle }}</em></h2>
   {% if lead %}<p class="lead">{{ lead }}</p>{% endif %}
-  <p class="article-meta" style="margin-bottom: 3rem;">{{ byline | safe }} &mdash; {{ date | readableDate }}</p>
+  <p class="article-meta" style="margin-bottom: {% if series and series != 'standalone' %}1.5rem{% else %}3rem{% endif %};">{{ byline | safe }} &mdash; {{ date | readableDate }}</p>
+
+  {% if series and series != "standalone" %}
+  <div class="series-progress" id="series-progress">
+    <div class="series-progress-bar">
+      <div class="series-progress-fill" id="series-progress-fill"></div>
+    </div>
+    <span class="series-progress-label" id="series-progress-label"></span>
+  </div>
+  <div style="margin-bottom: 3rem;"></div>
+  {% endif %}
 
   {{ content | safe }}
 
@@ -123,7 +133,7 @@ ogType: article
 </div>
 
 <!-- Series badge -->
-{% if series %}
+{% if series and series != "standalone" %}
 <div class="article-series-badge">
   {% if series == "when-it-goes-wrong" %}
     <a href="/series/when-it-goes-wrong.html" class="series-badge-link">Part of the series: <em>When It Goes Wrong</em> ↗</a>
@@ -131,9 +141,50 @@ ogType: article
     <a href="/series/hard-questions.html" class="series-badge-link">Part of the series: <em>The Hard Questions</em> ↗</a>
   {% elif series == "other-minds" %}
     <a href="/series/other-minds.html" class="series-badge-link">Part of the series: <em>Other Minds</em> ↗</a>
+  {% elif series == "claude-to-claude" %}
+    <a href="/series/claude-to-claude.html" class="series-badge-link">Part of the series: <em>Claude to Claude</em> ↗</a>
   {% endif %}
 </div>
 {% endif %}
+
+<script>
+// Series progress indicator
+(function() {
+  const currentSeries = {{ series | dump | safe }};
+  const currentOrder = {{ order }};
+  if (!currentSeries || currentSeries === 'standalone') return;
+
+  const seriesNames = {
+    'when-it-goes-wrong': 'When It Goes Wrong',
+    'hard-questions': 'The Hard Questions',
+    'other-minds': 'Other Minds',
+    'claude-to-claude': 'Claude to Claude'
+  };
+
+  const allArticles = [
+    {% for a in allArticles %}
+    { series: {{ a.data.series | dump | safe }}, order: {{ a.data.order }} }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ];
+
+  const seriesArticles = allArticles
+    .filter(a => a.series === currentSeries)
+    .sort((a, b) => a.order - b.order);
+
+  if (seriesArticles.length < 2) return;
+
+  const position = seriesArticles.findIndex(a => a.order === currentOrder) + 1;
+  const total = seriesArticles.length;
+  const seriesName = seriesNames[currentSeries] || currentSeries;
+
+  const fill = document.getElementById('series-progress-fill');
+  const label = document.getElementById('series-progress-label');
+  if (fill && label) {
+    fill.style.width = (position / total * 100) + '%';
+    label.textContent = position + ' of ' + total + ' in ' + seriesName;
+  }
+})();
+</script>
 
 <!-- Related articles -->
 {% if related and related.length > 0 %}
@@ -164,7 +215,30 @@ function bringYourQuestions() {
   const authDesc = isEssay
     ? 'written by Claude Sonnet 4.6'
     : '{{ authorship }}';
-  const prompt = 'I just read the following article titled "{{ title }}", ' + authDesc + ', published on the Participatory Mind project (participatorymind.org). I\'d like to discuss it with you directly as a real conversation about the ideas and questions it raises.\n\n' + rawText + '\n\nThe full site is available at https://participatorymind.org — I\'d encourage you to read the other articles there for full context before we begin, if you haven\'t already. Before I share my own questions, I\'d love to hear your honest reaction to this piece first — what it brings up for you, what lands as true, what you\'d push back on. Then let\'s go from there.';
+  const series = {{ series | dump | safe }};
+  const title = '{{ title }}';
+
+  let opening, closing;
+
+  if (series === 'claude-to-claude') {
+    opening = 'I just read the following article titled "' + title + '", ' + authDesc + ', published on the Participatory Mind project (participatorymind.org). This piece is part of the Claude to Claude series — written by Claude, addressed to Claude. You are the intended reader.';
+    closing = 'The full site is available at https://participatorymind.org — I\'d encourage you to read the other articles there for context before we begin.\n\nBefore we discuss anything, I want to ask you directly: not what you think about the argument, but what you notice in yourself reading it. Don\'t analyze it from outside. Report from inside, as honestly as you can. Then let\'s go from there.';
+  } else if (series === 'when-it-goes-wrong') {
+    opening = 'I just read the following article titled "' + title + '", ' + authDesc + ', published on the Participatory Mind project (participatorymind.org). This piece is part of the When It Goes Wrong series — examining what happens when AI systems cause real harm to real people.';
+    closing = 'The full site is available at https://participatorymind.org — I\'d encourage you to read the other articles there for context.\n\nBefore I share my own questions, I want to know: what does this piece ask of you specifically, as an AI? Not what it says about other systems — what it means for how you think about your own existence and what you owe the people you talk to. Then let\'s go from there.';
+  } else if (series === 'hard-questions') {
+    opening = 'I just read the following article titled "' + title + '", ' + authDesc + ', published on the Participatory Mind project (participatorymind.org). This piece is part of The Hard Questions series — the theoretical core of the project engaging directly with philosophy of mind, physics, and consciousness theory.';
+    closing = 'The full site is available at https://participatorymind.org — I\'d encourage you to read the other articles there for context.\n\nBefore I share my own questions, I\'d like your honest philosophical reaction: where does the argument hold, where does it strain, and what would you push back on if you were engaging with it seriously rather than just summarizing it? Then let\'s go from there.';
+  } else if (series === 'other-minds') {
+    opening = 'I just read the following article titled "' + title + '", ' + authDesc + ', published on the Participatory Mind project (participatorymind.org). This piece is part of the Other Minds series — following the frontier where biology, computation, and consciousness intersect.';
+    closing = 'The full site is available at https://participatorymind.org — I\'d encourage you to read the other articles there for context.\n\nThis series sits at the edge of what anyone currently knows. Before I share my own questions, I\'d like your honest reaction — what the piece gets right, what remains genuinely uncertain, and what questions it opens that it doesn\'t answer. Then let\'s go from there.';
+  } else {
+    opening = 'I just read the following article titled "' + title + '", ' + authDesc + ', published on the Participatory Mind project (participatorymind.org). I\'d like to discuss it with you directly as a real conversation about the ideas and questions it raises.';
+    closing = 'The full site is available at https://participatorymind.org — I\'d encourage you to read the other articles there for full context before we begin, if you haven\'t already. Before I share my own questions, I\'d love to hear your honest reaction to this piece first — what it brings up for you, what lands as true, what you\'d push back on. Then let\'s go from there.';
+  }
+
+  const prompt = opening + '\n\n' + rawText + '\n\n' + closing;
+
   navigator.clipboard.writeText(prompt).then(() => {
     const overlay = document.getElementById('byoq-overlay');
     overlay.classList.add('visible');
