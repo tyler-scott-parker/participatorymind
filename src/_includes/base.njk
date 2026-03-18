@@ -82,6 +82,7 @@
   {{ content | safe }}
 
   <footer>
+    {% if not articleId %}
     <div class="footer-newsletter">
       <p class="footer-newsletter-heading">New articles by email</p>
       <p class="footer-newsletter-sub">When something new is published here, you'll get a brief note with a hook and a link. No noise.</p>
@@ -97,6 +98,7 @@
         <button type="submit" class="bd-btn">Subscribe</button>
       </form>
     </div>
+    {% endif %}
     <p class="footer-name">Participatory Mind</p>
     <p>Tyler Parker &amp; Claude Sonnet 4.6 &mdash; March 2026</p>
     <p style="margin-top: 1.5rem; font-size: 0.82rem; color: var(--text-muted);">If this project means something to you, you're welcome to <a href="https://www.paypal.com/donate/?business=tylerparkerchess@gmail.com&currency_code=USD" target="_blank" style="color: var(--gold); text-decoration: none;">support it</a>.</p>
