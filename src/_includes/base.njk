@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>{{ title }} — Participatory Mind</title>
+  <title>{% if seoTitle %}{{ seoTitle }} — Participatory Mind{% else %}{{ title }} — Participatory Mind{% endif %}</title>
   <meta name="description" content="{{ description }}" />
   <meta name="google-site-verification" content="6Kb96SGoQp_XYywfH0fYlibdmhFJn61OUHqxC6iWuqk" />
   {% if keywords %}<meta name="keywords" content="{{ keywords }}" />{% endif %}
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="{{ ogType or 'website' }}" />
   <meta property="og:url" content="https://participatorymind.org/{{ page.url }}" />
-  <meta property="og:title" content="{{ title }} — Participatory Mind" />
+  <meta property="og:title" content="{% if seoTitle %}{{ seoTitle }}{% else %}{{ title }}{% endif %} — Participatory Mind" />
   <meta property="og:description" content="{{ description }}" />
   {% if articleId %}
   <meta property="og:image" content="https://participatorymind.org/og/{{ articleId }}.png" />

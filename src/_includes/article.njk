@@ -13,7 +13,9 @@ ogType: article
   "@type": "Article",
   "headline": {{ title | dump | safe }},
   "description": {{ description | dump | safe }},
+  {% if keywords %}"keywords": {{ keywords | dump | safe }},{% endif %}
   "datePublished": "{{ date | isoDate }}",
+  "dateModified": "{{ date | isoDate }}",
   "author": [
     {
       "@type": "Person",
@@ -28,7 +30,11 @@ ogType: article
   "publisher": {
     "@type": "Organization",
     "name": "Participatory Mind",
-    "url": "https://participatorymind.org"
+    "url": "https://participatorymind.org",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://participatorymind.org/favicon.svg"
+    }
   },
   "url": "https://participatorymind.org{{ page.url }}",
   "image": "https://participatorymind.org/og/{{ articleId }}.png",
