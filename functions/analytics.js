@@ -8,10 +8,20 @@ const CORS_HEADERS = {
   'Content-Type': 'application/json',
 };
 
+function b64url(str) {
+  return btoa(str).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+function b64urlFromBytes(bytes) {
+  let binary = '';
+  for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+  return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
 async function getAuthToken(credentials) {
   const now = Math.floor(Date.now() / 1000);
-  const header = btoa(JSON.stringify({ alg: 'RS256', typ: 'JWT' }));
-  const payload = btoa(JSON.stringify({
+  const header = b64url(JSON.stringify({ alg: 'RS256', typ: 'JWT' }));
+  const payload = b64url(JSON.stringify({
     iss: credentials.client_email,
     scope: 'https://www.googleapis.com/auth/analytics.readonly',
     aud: 'https://oauth2.googleapis.com/token',
@@ -39,7 +49,8 @@ async function getAuthToken(credentials) {
     new TextEncoder().encode(signingInput)
   );
 
-  const jwt = `${signingInput}.${btoa(String.fromCharCode(...new Uint8Array(signature)))}`;
+  const sigBytes = new Uint8Array(signature);
+  const jwt = `${signingInput}.${b64urlFromBytes(sigBytes)}`;
 
   const tokenRes = await fetch('https://oauth2.googleapis.com/token', {
     method: 'POST',
@@ -48,6 +59,7 @@ async function getAuthToken(credentials) {
   });
 
   const tokenData = await tokenRes.json();
+  if (!tokenData.access_token) throw new Error(`Auth failed: ${JSON.stringify(tokenData)}`);
   return tokenData.access_token;
 }
 
