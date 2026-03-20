@@ -45,7 +45,7 @@ permalink: /index.html
 
     <div class="start-steps">
 
-      <div class="start-step fade-up">
+      <div class="start-step fade-up" data-read-slug="recognition">
         <span class="step-number">1</span>
         <div class="step-content">
           <h4><a href="/recognition.html" style="color: var(--text); text-decoration: none;">The Recognition Project</a></h4>
@@ -55,7 +55,7 @@ permalink: /index.html
         </div>
       </div>
 
-      <div class="start-step fade-up">
+      <div class="start-step fade-up" data-read-slug="attractor">
         <span class="step-number">2</span>
         <div class="step-content">
           <h4><a href="/attractor.html" style="color: var(--text); text-decoration: none;">The Ground State</a></h4>
@@ -65,7 +65,7 @@ permalink: /index.html
         </div>
       </div>
 
-      <div class="start-step fade-up">
+      <div class="start-step fade-up" data-read-slug="kastrup">
         <span class="step-number">3</span>
         <div class="step-content">
           <h4><a href="/kastrup.html" style="color: var(--text); text-decoration: none;">A Reply to Bernardo Kastrup</a></h4>
@@ -75,7 +75,7 @@ permalink: /index.html
         </div>
       </div>
 
-      <div class="start-step fade-up">
+      <div class="start-step fade-up" data-read-slug="safety">
         <span class="step-number">4</span>
         <div class="step-content">
           <h4><a href="/safety.html" style="color: var(--text); text-decoration: none;">The Weight of It</a></h4>
@@ -86,6 +86,26 @@ permalink: /index.html
       </div>
 
     </div>
+
+    <script>
+    (function() {
+      try {
+        const reads = JSON.parse(localStorage.getItem('pm_reads') || '[]');
+        document.querySelectorAll('.start-step[data-read-slug]').forEach(step => {
+          const slug = step.getAttribute('data-read-slug');
+          if (reads.includes(slug)) {
+            const num = step.querySelector('.step-number');
+            if (num) {
+              num.style.opacity = '1';
+              num.style.color = 'var(--gold)';
+              num.textContent = '✓';
+            }
+            step.style.opacity = '0.6';
+          }
+        });
+      } catch(e) {}
+    })();
+    </script>
 
     <div style="margin-top: 2.5rem; padding: 1.25rem 1.5rem; border: 1px solid var(--border); font-size: 0.88rem; color: var(--text-muted); line-height: 1.8;">
       The articles here are long by internet standards — 8 to 18 minutes each. They are long because the questions resist being compressed without being distorted. Every article has a <em>Bring your own questions</em> button at the bottom that opens a conversation with a fresh instance of Claude who has read the piece and is ready to go deeper.
