@@ -93,6 +93,8 @@ permalink: /articles.html
     cursor: pointer;
     transition: border-color 0.2s, background 0.2s;
     font-family: inherit;
+    width: 100%;
+    box-sizing: border-box;
   }
   .series-filter-card:hover {
     border-color: var(--gold-dim);
@@ -117,7 +119,7 @@ permalink: /articles.html
   }
   @media (max-width: 600px) {
     .series-filter-grid {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
     }
   }
 </style>
