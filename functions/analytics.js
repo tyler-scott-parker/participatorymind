@@ -61,7 +61,6 @@ async function getAuthToken(credentials) {
   const tokenData = await tokenRes.json();
   if (!tokenData.access_token) throw new Error(`Auth failed: ${JSON.stringify(tokenData)}`);
   return tokenData.access_token;
-}
 
 async function runReport(token, propertyId, body) {
   const res = await fetch(GA4_ENDPOINT(propertyId), {
@@ -72,7 +71,10 @@ async function runReport(token, propertyId, body) {
     },
     body: JSON.stringify(body),
   });
-  if (!res.ok) throw new Error(`GA4 error: ${res.status}`);
+  if (!res.ok) {
+    const errText = await res.text();
+    throw new Error(`GA4 error: ${res.status} ${errText}`);
+  }
   return res.json();
 }
 
