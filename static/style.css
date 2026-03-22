@@ -57,7 +57,7 @@
       top: 0;
       left: 0;
       right: 0;
-      z-index: 100;
+      z-index: 500;
       padding: 1.5rem 4rem;
       display: flex;
       align-items: center;
@@ -802,7 +802,7 @@
       background: none;
       border: none;
       position: relative;
-      z-index: 200;
+      z-index: 1000;
     }
 
     .nav-hamburger span {
@@ -1347,7 +1347,7 @@
     /* Series filter grid */
     .series-filter-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
       gap: 1rem;
       margin-bottom: 1rem;
     }
