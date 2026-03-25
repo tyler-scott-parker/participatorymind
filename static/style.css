@@ -1347,7 +1347,7 @@
     /* Series filter grid */
     .series-filter-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 1rem;
       margin-bottom: 1rem;
     }
@@ -1361,8 +1361,8 @@
       cursor: pointer;
       transition: border-color 0.2s, background 0.2s;
       font-family: inherit;
-      width: 100%;
       box-sizing: border-box;
+      min-width: 0;
     }
     .series-filter-card:hover {
       border-color: var(--gold-dim);
@@ -1385,9 +1385,9 @@
       line-height: 1.7;
       margin: 0;
     }
-    @media (max-width: 768px) {
+    @media (max-width: 600px) {
       .series-filter-grid {
-        grid-template-columns: 1fr !important;
+        grid-template-columns: 1fr;
       }
     }
 
