@@ -13,7 +13,7 @@ permalink: /articles.html
   <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.8; max-width: 600px; margin-bottom: 3rem;">Every essay, document, and inquiry published so far. Click a series to filter, or browse everything.</p>
 
   <!-- Series cards as filters -->
-  <div class="series-filter-grid" id="series-filter-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1rem;">
+  <div class="series-filter-grid" id="series-filter-grid" style="display:grid;gap:1rem;margin-bottom:1rem;">
 
     <div class="series-filter-card active" role="button" tabindex="0" data-filter="all" style="border:1px solid rgba(201,169,110,0.15);padding:1.5rem;cursor:pointer;box-sizing:border-box;" onmouseover="this.style.borderColor='#8a6f3e';this.style.background='rgba(201,169,110,0.04)'" onmouseleave="this.style.borderColor=this.classList.contains('active')?'#c9a96e':'rgba(201,169,110,0.15)';this.style.background=this.classList.contains('active')?'rgba(201,169,110,0.07)':'none'">
       <p class="section-label" style="margin-bottom: 0.4rem;">All</p>
@@ -95,6 +95,15 @@ permalink: /articles.html
   const countEl = document.getElementById('filter-count');
   const emptyEl = document.getElementById('filter-empty');
   const grid = document.getElementById('archive-grid');
+  // Responsive grid columns
+  const grid = document.getElementById('series-filter-grid');
+  function setGridCols() {
+    const w = window.innerWidth;
+    grid.style.gridTemplateColumns = w < 480 ? '1fr' : w < 768 ? 'repeat(2,1fr)' : 'repeat(3,1fr)';
+  }
+  setGridCols();
+  window.addEventListener('resize', setGridCols);
+
   const seriesCards = document.querySelectorAll('.series-filter-card');
 
   // Initialize active card inline styles on load
