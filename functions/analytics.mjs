@@ -61,6 +61,7 @@ async function getAuthToken(credentials) {
   const tokenData = await tokenRes.json();
   if (!tokenData.access_token) throw new Error(`Auth failed: ${JSON.stringify(tokenData)}`);
   return tokenData.access_token;
+}
 
 async function runReport(token, propertyId, body) {
   const res = await fetch(GA4_ENDPOINT(propertyId), {
@@ -88,16 +89,16 @@ function parseRows(data) {
   });
 }
 
-export async function onRequest(context) {
-  if (context.request.method === 'OPTIONS') {
+async function handleRequest(request, env) {
+  if (request.method === 'OPTIONS') {
     return new Response(null, { status: 204, headers: CORS_HEADERS });
   }
 
   try {
-    const propertyId = context.env.GA4_PROPERTY_ID;
-    const credentials = JSON.parse(context.env.GA4_CREDENTIALS);
+    const propertyId = env.GA4_PROPERTY_ID;
+    const credentials = JSON.parse(env.GA4_CREDENTIALS);
     const token = await getAuthToken(credentials);
-    const url = new URL(context.request.url);
+    const url = new URL(request.url);
     const report = url.searchParams.get('report') || 'overview';
 
     const results = {};
@@ -158,3 +159,7 @@ export async function onRequest(context) {
     });
   }
 }
+
+addEventListener('fetch', event => {
+  event.respondWith(handleRequest(event.request, event.env || {}));
+});
