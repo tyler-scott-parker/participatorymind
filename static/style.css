@@ -1347,7 +1347,7 @@
     /* Series filter grid */
     .series-filter-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 1rem;
       margin-bottom: 1rem;
     }
@@ -1378,14 +1378,21 @@
       font-weight: 400;
       line-height: 1.2;
       margin: 0 0 0.6rem;
+      text-align: left;
     }
     .series-filter-card p {
       font-size: 0.82rem;
       color: var(--text-muted);
       line-height: 1.7;
       margin: 0;
+      text-align: left;
     }
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
+      .series-filter-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 480px) {
       .series-filter-grid {
         grid-template-columns: 1fr;
       }
