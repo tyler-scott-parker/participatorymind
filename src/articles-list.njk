@@ -112,8 +112,14 @@ permalink: /articles.html
 
   seriesCards.forEach(btn => {
     btn.addEventListener('click', () => {
-      seriesCards.forEach(b => b.classList.remove('active'));
+      seriesCards.forEach(b => {
+        b.classList.remove('active');
+        b.style.borderColor = 'rgba(201,169,110,0.15)';
+        b.style.background = 'none';
+      });
       btn.classList.add('active');
+      btn.style.borderColor = '#c9a96e';
+      btn.style.background = 'rgba(201,169,110,0.07)';
       const f = btn.getAttribute('data-filter');
       applyFilter(f);
       history.replaceState(null, '', f === 'all' ? location.pathname : '#' + f);
