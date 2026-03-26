@@ -59,7 +59,17 @@ ogType: article
     <div class="series-progress-bar">
       <div class="series-progress-fill" id="series-progress-fill"></div>
     </div>
-    <span class="series-progress-label" id="series-progress-label"></span>
+    {% if series == "when-it-goes-wrong" %}
+      <a href="/series/when-it-goes-wrong.html" class="series-progress-label" id="series-progress-label"></a>
+    {% elif series == "hard-questions" %}
+      <a href="/series/hard-questions.html" class="series-progress-label" id="series-progress-label"></a>
+    {% elif series == "other-minds" %}
+      <a href="/series/other-minds.html" class="series-progress-label" id="series-progress-label"></a>
+    {% elif series == "claude-to-claude" %}
+      <a href="/series/claude-to-claude.html" class="series-progress-label" id="series-progress-label"></a>
+    {% else %}
+      <span class="series-progress-label" id="series-progress-label"></span>
+    {% endif %}
   </div>
   <div style="margin-bottom: 3rem;"></div>
   {% endif %}
@@ -152,7 +162,18 @@ ogType: article
 {% endif %}
 
 <script>
-// Series progress indicator
+// Active nav highlight
+(function() {
+  const path = window.location.pathname;
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    const href = link.getAttribute('href');
+    if (href === path || (href !== '/' && path.startsWith(href.replace('.html', '')))) {
+      link.classList.add('nav-active');
+    }
+  });
+})();
+
+// Series progress indicator + series prev/next
 (function() {
   const currentSeries = {{ series | dump | safe }};
   const currentOrder = {{ order }};
@@ -165,9 +186,16 @@ ogType: article
     'claude-to-claude': 'Claude to Claude'
   };
 
+  const seriesUrls = {
+    'when-it-goes-wrong': '/series/when-it-goes-wrong.html',
+    'hard-questions': '/series/hard-questions.html',
+    'other-minds': '/series/other-minds.html',
+    'claude-to-claude': '/series/claude-to-claude.html'
+  };
+
   const allArticles = [
     {% for a in allArticles %}
-    { series: {{ a.data.series | dump | safe }}, order: {{ a.data.order }} }{% if not loop.last %},{% endif %}
+    { series: {{ a.data.series | dump | safe }}, order: {{ a.data.order }}, url: '{{ a.url }}', title: {{ a.data.title | dump | safe }} }{% if not loop.last %},{% endif %}
     {% endfor %}
   ];
 
@@ -181,11 +209,39 @@ ogType: article
   const total = seriesArticles.length;
   const seriesName = seriesNames[currentSeries] || currentSeries;
 
+  // Progress bar
   const fill = document.getElementById('series-progress-fill');
   const label = document.getElementById('series-progress-label');
   if (fill && label) {
     fill.style.width = (position / total * 100) + '%';
     label.textContent = position + ' of ' + total + ' in ' + seriesName;
+  }
+
+  // Series prev/next
+  const currentIdx = seriesArticles.findIndex(a => a.order === currentOrder);
+  const seriesPrev = currentIdx > 0 ? seriesArticles[currentIdx - 1] : null;
+  const seriesNext = currentIdx < seriesArticles.length - 1 ? seriesArticles[currentIdx + 1] : null;
+
+  if (seriesPrev || seriesNext) {
+    const container = document.getElementById('series-prevnext');
+    const prevLink = document.getElementById('series-prev-link');
+    const nextLink = document.getElementById('series-next-link');
+
+    if (seriesPrev && prevLink) {
+      prevLink.href = seriesPrev.url;
+      prevLink.textContent = '← ' + seriesPrev.title + ' (series)';
+    } else if (prevLink) {
+      prevLink.style.display = 'none';
+    }
+
+    if (seriesNext && nextLink) {
+      nextLink.href = seriesNext.url;
+      nextLink.textContent = seriesNext.title + ' (series) →';
+    } else if (nextLink) {
+      nextLink.style.display = 'none';
+    }
+
+    if (container) container.style.display = 'flex';
   }
 })();
 </script>
@@ -204,6 +260,12 @@ ogType: article
   </div>
 </div>
 {% endif %}
+
+<!-- Series prev/next -->
+<div class="series-prevnext" id="series-prevnext" style="display:none;">
+  <a href="" class="series-prevnext-link series-prevnext-prev" id="series-prev-link"></a>
+  <a href="" class="series-prevnext-link series-prevnext-next" id="series-next-link"></a>
+</div>
 
 <!-- Prev / Next -->
 <div class="prevnext">

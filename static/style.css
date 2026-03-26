@@ -102,6 +102,11 @@
       color: var(--gold);
     }
 
+    .nav-links a.nav-active {
+      color: var(--gold);
+      opacity: 1;
+    }
+
     /* Hero */
     .hero {
       min-height: 100vh;
@@ -1049,6 +1054,15 @@
       white-space: nowrap;
     }
 
+    a.series-progress-label {
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    a.series-progress-label:hover {
+      color: var(--gold);
+    }
+
     /* Series badge */
     .article-series-badge {
       max-width: 780px;
@@ -1145,6 +1159,35 @@
 
     .prevnext-link:hover { opacity: 1; }
     .prevnext-next { text-align: right; margin-left: auto; }
+
+    .series-prevnext {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0.75rem 2rem 0;
+      gap: 1rem;
+    }
+
+    .series-prevnext-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-family: 'Lora', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      transition: opacity 0.2s, color 0.2s;
+      max-width: 45%;
+    }
+
+    .series-prevnext-link:hover {
+      opacity: 1;
+      color: var(--gold);
+    }
+
+    .series-prevnext-next { text-align: right; margin-left: auto; }
 
     /* References */
     .references {

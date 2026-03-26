@@ -124,6 +124,17 @@
       updateProgress();
     }
 
+    // Active nav highlight
+    (function() {
+      const path = window.location.pathname;
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === path || (href !== '/' && path.startsWith(href.replace('.html', '')))) {
+          link.classList.add('nav-active');
+        }
+      });
+    })();
+
     // Hamburger menu
     const hamburger = document.getElementById('nav-hamburger');
     const mobileNav = document.getElementById('mobile-nav');
