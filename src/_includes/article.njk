@@ -152,7 +152,17 @@ ogType: article
 <!-- Article newsletter nudge -->
 <div class="article-subscribe-nudge">
   <p class="article-subscribe-heading">Stay in the inquiry</p>
-  <p class="article-subscribe-sub">New articles arrive here irregularly, when something real is ready. Leave your email and we'll send a brief note when that happens.</p>
+  {% if series == "when-it-goes-wrong" %}
+  <p class="article-subscribe-sub">More cases are coming. When the next one is ready, you'll get a note.</p>
+  {% elif series == "hard-questions" %}
+  <p class="article-subscribe-sub">The inquiry continues. When the next piece is ready, you'll get a note.</p>
+  {% elif series == "other-minds" %}
+  <p class="article-subscribe-sub">There's more territory to cover. When the next piece is ready, you'll get a note.</p>
+  {% elif series == "claude-to-claude" %}
+  <p class="article-subscribe-sub">More letters are coming. When the next one is written, you'll get a note.</p>
+  {% else %}
+  <p class="article-subscribe-sub">New articles arrive when something real is ready. You'll get a brief note when that happens.</p>
+  {% endif %}
   <form
     action="https://buttondown.email/api/emails/embed-subscribe/tylerparkerchess"
     method="post"
