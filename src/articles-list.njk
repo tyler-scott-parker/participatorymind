@@ -53,12 +53,28 @@ permalink: /articles.html
 
   </div>
 
+  <!-- Toolbar: search + unread toggle -->
+  <div class="filter-toolbar">
+    <input
+      type="search"
+      id="filter-search"
+      class="filter-search"
+      placeholder="Search articles…"
+      aria-label="Search articles"
+      autocomplete="off"
+    />
+    <label class="filter-unread-toggle">
+      <input type="checkbox" id="filter-unread" />
+      Unread only
+    </label>
+  </div>
+
   <!-- Article grid -->
-  <p class="filter-count" id="filter-count" style="margin-top: 3rem;"></p>
+  <p class="filter-count" id="filter-count" style="margin-top: 1.25rem;"></p>
 
   <div class="article-grid" id="archive-grid" style="margin-top: 1.5rem;">
   {% for article in allArticles %}
-    <div class="article-card fade-up" data-slug="{{ article.data.articleId }}" data-filter="{{ article.data.series }}" data-date="{{ article.data.date | isoDate }}">
+    <div class="article-card fade-up" data-slug="{{ article.data.articleId }}" data-filter="{{ article.data.series }}" data-date="{{ article.data.date | isoDate }}" data-search="{{ article.data.title | lower }} {{ article.data.description | lower }} {{ article.data.claim | lower }}">
       <div class="article-card-header">
         <p class="article-tag">{{ article.data.tag }}</p>
         <span class="unread-dot" title="You haven't read this yet"></span>
@@ -72,12 +88,13 @@ permalink: /articles.html
   {% endfor %}
   </div>
 
-  <p class="filter-empty" id="filter-empty" style="display:none; text-align:center; color: var(--text-muted); font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; padding: 3rem 0;">No articles in this category yet.</p>
+  <p class="filter-empty" id="filter-empty" style="display:none; text-align:center; color: var(--text-muted); font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; padding: 3rem 0;">No articles match.</p>
 
 </section>
 
 <script>
 (function() {
+  // Unread dots
   try {
     const reads = JSON.parse(localStorage.getItem('pm_reads') || '[]');
     document.querySelectorAll('.article-card[data-slug]').forEach(card => {
@@ -91,11 +108,14 @@ permalink: /articles.html
     });
   } catch(e) {}
 
-  const cards = document.querySelectorAll('#archive-grid .article-card');
+  const cards = Array.from(document.querySelectorAll('#archive-grid .article-card'));
   const countEl = document.getElementById('filter-count');
   const emptyEl = document.getElementById('filter-empty');
   const archiveGrid = document.getElementById('archive-grid');
-  // Responsive grid columns
+  const searchInput = document.getElementById('filter-search');
+  const unreadToggle = document.getElementById('filter-unread');
+
+  // Series filter grid responsive columns
   const grid = document.getElementById('series-filter-grid');
   function setGridCols() {
     const w = window.innerWidth;
@@ -105,6 +125,16 @@ permalink: /articles.html
   window.addEventListener('resize', setGridCols);
 
   const seriesCards = document.querySelectorAll('.series-filter-card');
+  let activeFilter = 'all';
+  let activeSeriesName = '';
+
+  const seriesNames = {
+    'when-it-goes-wrong': 'When It Goes Wrong',
+    'hard-questions': 'The Hard Questions',
+    'other-minds': 'Other Minds',
+    'claude-to-claude': 'Claude to Claude',
+    'standalone': 'Individual Essays'
+  };
 
   // Initialize active card inline styles on load
   seriesCards.forEach(c => {
@@ -114,15 +144,41 @@ permalink: /articles.html
     }
   });
 
-  function applyFilter(filter) {
+  function getReads() {
+    try { return JSON.parse(localStorage.getItem('pm_reads') || '[]'); } catch(e) { return []; }
+  }
+
+  function applyFilters() {
+    const query = searchInput.value.trim().toLowerCase();
+    const unreadOnly = unreadToggle.checked;
+    const reads = unreadOnly ? getReads() : [];
     let visible = 0;
+
     cards.forEach(card => {
       const series = card.getAttribute('data-filter') || '';
-      const show = filter === 'all' || series === filter;
+      const searchText = card.getAttribute('data-search') || '';
+      const slug = card.getAttribute('data-slug') || '';
+
+      const seriesMatch = activeFilter === 'all' || series === activeFilter;
+      const searchMatch = !query || searchText.includes(query);
+      const unreadMatch = !unreadOnly || !reads.includes(slug);
+
+      const show = seriesMatch && searchMatch && unreadMatch;
       card.style.display = show ? '' : 'none';
       if (show) visible++;
     });
-    countEl.textContent = filter === 'all' ? '' : visible + ' article' + (visible !== 1 ? 's' : '');
+
+    // Build count label
+    let label = '';
+    if (query && activeFilter !== 'all') {
+      label = visible + ' result' + (visible !== 1 ? 's' : '') + ' in ' + activeSeriesName;
+    } else if (query) {
+      label = visible + ' result' + (visible !== 1 ? 's' : '');
+    } else if (activeFilter !== 'all') {
+      label = visible + ' article' + (visible !== 1 ? 's' : '') + ' in ' + activeSeriesName;
+    }
+    countEl.textContent = label;
+
     emptyEl.style.display = visible === 0 ? 'block' : 'none';
     archiveGrid.style.display = visible === 0 ? 'none' : '';
   }
@@ -137,13 +193,31 @@ permalink: /articles.html
       btn.classList.add('active');
       btn.style.borderColor = '#c9a96e';
       btn.style.background = 'rgba(201,169,110,0.07)';
-      const f = btn.getAttribute('data-filter');
-      applyFilter(f);
-      history.replaceState(null, '', f === 'all' ? location.pathname : '#' + f);
-      document.getElementById('archive-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      activeFilter = btn.getAttribute('data-filter');
+      activeSeriesName = seriesNames[activeFilter] || '';
+      applyFilters();
+      history.replaceState(null, '', activeFilter === 'all' ? location.pathname : '#' + activeFilter);
+
+      // Scroll to toolbar (not past it) so series cards remain visible above
+      const toolbar = document.getElementById('filter-search');
+      if (toolbar) {
+        const y = toolbar.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
     });
   });
 
+  // Search input — debounced
+  let searchTimer;
+  searchInput.addEventListener('input', () => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(applyFilters, 180);
+  });
+
+  // Unread toggle
+  unreadToggle.addEventListener('change', applyFilters);
+
+  // Hash-based deep link
   const hash = window.location.hash.replace('#', '');
   if (hash) {
     const target = document.querySelector('.series-filter-card[data-filter="' + hash + '"]');
