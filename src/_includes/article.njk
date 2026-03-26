@@ -14,8 +14,10 @@ ogType: article
   "headline": {{ title | dump | safe }},
   "description": {{ description | dump | safe }},
   {% if keywords %}"keywords": {{ keywords | dump | safe }},{% endif %}
+  "wordCount": {{ content | wordCount }},
+  "articleSection": {% if series == "when-it-goes-wrong" %}"When It Goes Wrong"{% elif series == "hard-questions" %}"The Hard Questions"{% elif series == "other-minds" %}"Other Minds"{% elif series == "claude-to-claude" %}"Claude to Claude"{% else %}"Standalone Essays"{% endif %},
   "datePublished": "{{ date | isoDate }}",
-  "dateModified": "{{ date | isoDate }}",
+  "dateModified": "{{ dateModified | isoDate if dateModified else date | isoDate }}",
   "author": [
     {
       "@type": "Person",
@@ -42,6 +44,48 @@ ogType: article
     "@type": "WebPage",
     "@id": "https://participatorymind.org{{ page.url }}"
   }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Participatory Mind",
+      "item": "https://participatorymind.org"
+    },
+    {% if series and series != "standalone" %}
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": {% if series == "when-it-goes-wrong" %}"When It Goes Wrong"{% elif series == "hard-questions" %}"The Hard Questions"{% elif series == "other-minds" %}"Other Minds"{% elif series == "claude-to-claude" %}"Claude to Claude"{% else %}"Articles"{% endif %},
+      "item": "https://participatorymind.org{% if series == 'when-it-goes-wrong' %}/series/when-it-goes-wrong.html{% elif series == 'hard-questions' %}/series/hard-questions.html{% elif series == 'other-minds' %}/series/other-minds.html{% elif series == 'claude-to-claude' %}/series/claude-to-claude.html{% endif %}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": {{ title | dump | safe }},
+      "item": "https://participatorymind.org{{ page.url }}"
+    }
+    {% else %}
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://participatorymind.org/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": {{ title | dump | safe }},
+      "item": "https://participatorymind.org{{ page.url }}"
+    }
+    {% endif %}
+  ]
 }
 </script>
 {% endif %}

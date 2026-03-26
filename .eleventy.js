@@ -40,6 +40,12 @@ module.exports = function(eleventyConfig) {
     return collection.find(a => a.data.order === currentOrder + 1) || null;
   });
 
+  // Word count filter — strips HTML, counts words
+  eleventyConfig.addFilter("wordCount", content => {
+    if (!content) return 0;
+    return content.replace(/<[^>]*>/g, ' ').split(/\s+/).filter(w => w.length > 0).length;
+  });
+
   return {
     dir: {
       input: "src",
