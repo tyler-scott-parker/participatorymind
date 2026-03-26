@@ -1396,6 +1396,8 @@
       background: none;
       border: 1px solid rgba(201,169,110,0.08);
       border-radius: 0;
+      -webkit-appearance: none;
+      appearance: none;
       color: var(--text-muted);
       font-family: inherit;
       font-size: 0.75rem;
@@ -1493,8 +1495,12 @@
         cursor: pointer;
         background: none;
         border: none;
+        border-radius: 0;
         padding: 0;
+        margin: 0;
         font-family: inherit;
+        -webkit-appearance: none;
+        appearance: none;
         transition: opacity 0.2s;
       }
 
@@ -1516,6 +1522,18 @@
       .filter-search {
         width: 100%;
         min-width: unset;
+        -webkit-appearance: none;
+        appearance: none;
+        border-radius: 0;
+      }
+
+      .filter-unread-toggle input[type="checkbox"] {
+        width: 14px;
+        height: 14px;
+        min-width: 14px;
+        -webkit-appearance: none;
+        appearance: none;
+        border-radius: 0;
       }
     }
 
