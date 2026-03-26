@@ -55,18 +55,21 @@ permalink: /articles.html
 
   <!-- Toolbar: search + unread toggle -->
   <div class="filter-toolbar">
-    <input
-      type="search"
-      id="filter-search"
-      class="filter-search"
-      placeholder="Search articles…"
-      aria-label="Search articles"
-      autocomplete="off"
-    />
-    <label class="filter-unread-toggle">
-      <input type="checkbox" id="filter-unread" />
-      Unread only
-    </label>
+    <button class="filter-toolbar-toggle" id="filter-toolbar-toggle" aria-expanded="false">Search &amp; filter</button>
+    <div class="filter-toolbar-expandable" id="filter-toolbar-expandable">
+      <input
+        type="search"
+        id="filter-search"
+        class="filter-search"
+        placeholder="Search articles…"
+        aria-label="Search articles"
+        autocomplete="off"
+      />
+      <label class="filter-unread-toggle">
+        <input type="checkbox" id="filter-unread" />
+        Unread only
+      </label>
+    </div>
   </div>
 
   <!-- Article grid -->
@@ -206,6 +209,18 @@ permalink: /articles.html
       }
     });
   });
+
+  // Mobile toolbar toggle
+  const toolbarToggle = document.getElementById('filter-toolbar-toggle');
+  const toolbarExpandable = document.getElementById('filter-toolbar-expandable');
+  if (toolbarToggle && toolbarExpandable) {
+    toolbarToggle.addEventListener('click', () => {
+      const isOpen = toolbarExpandable.classList.toggle('open');
+      toolbarToggle.setAttribute('aria-expanded', isOpen);
+      toolbarToggle.textContent = isOpen ? 'Hide search' : 'Search & filter';
+      if (isOpen) document.getElementById('filter-search').focus();
+    });
+  }
 
   // Search input — debounced
   let searchTimer;

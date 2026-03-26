@@ -1471,6 +1471,54 @@
       .filter-btn { font-size: 0.75rem; padding: 0.35rem 0.85rem; }
     }
 
+    .filter-toolbar-toggle {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .filter-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.6rem;
+        margin-top: 1rem;
+      }
+
+      .filter-toolbar-toggle {
+        display: inline-block;
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        opacity: 0.45;
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 0;
+        font-family: inherit;
+        transition: opacity 0.2s;
+      }
+
+      .filter-toolbar-toggle:hover {
+        opacity: 0.8;
+      }
+
+      .filter-toolbar-expandable {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 0.6rem;
+      }
+
+      .filter-toolbar-expandable.open {
+        display: flex;
+      }
+
+      .filter-search {
+        width: 100%;
+        min-width: unset;
+      }
+    }
+
     /* Series filter grid */
     .series-filter-grid {
       display: grid;
