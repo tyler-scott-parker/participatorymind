@@ -83,7 +83,7 @@
   {{ content | safe }}
 
   <footer>
-    {% if not articleId %}
+    {% if not articleId and not hideNewsletter %}
     <div class="footer-newsletter">
       <p class="footer-newsletter-heading">New articles by email</p>
       <p class="footer-newsletter-sub">When something new is published here, you'll get a brief note with a hook and a link. No noise.</p>
