@@ -1486,7 +1486,6 @@
       }
 
       .filter-toolbar-toggle {
-        display: inline-block;
         font-size: 0.72rem;
         letter-spacing: 0.12em;
         text-transform: uppercase;
@@ -1509,14 +1508,9 @@
       }
 
       .filter-toolbar-expandable {
-        display: none;
         width: 100%;
         flex-direction: column;
         gap: 0.6rem;
-      }
-
-      .filter-toolbar-expandable.open {
-        display: flex;
       }
 
       .filter-search {

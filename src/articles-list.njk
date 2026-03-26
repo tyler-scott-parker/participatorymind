@@ -55,8 +55,8 @@ permalink: /articles.html
 
   <!-- Toolbar: search + unread toggle -->
   <div class="filter-toolbar">
-    <button class="filter-toolbar-toggle" id="filter-toolbar-toggle" aria-expanded="false">Search &amp; filter</button>
-    <div class="filter-toolbar-expandable" id="filter-toolbar-expandable">
+    <button class="filter-toolbar-toggle" id="filter-toolbar-toggle" aria-expanded="false" style="display:none;">Search &amp; filter</button>
+    <div class="filter-toolbar-expandable" id="filter-toolbar-expandable" style="display:none;">
       <input
         type="text"
         id="filter-search"
@@ -210,17 +210,34 @@ permalink: /articles.html
     });
   });
 
-  // Mobile toolbar toggle
+  // Toolbar: mobile toggle vs desktop always-visible
   const toolbarToggle = document.getElementById('filter-toolbar-toggle');
   const toolbarExpandable = document.getElementById('filter-toolbar-expandable');
-  if (toolbarToggle && toolbarExpandable) {
-    toolbarToggle.addEventListener('click', () => {
-      const isOpen = toolbarExpandable.classList.toggle('open');
-      toolbarToggle.setAttribute('aria-expanded', isOpen);
-      toolbarToggle.textContent = isOpen ? 'Hide search' : 'Search & filter';
-      if (isOpen) document.getElementById('filter-search').focus();
-    });
+
+  function isMobile() { return window.innerWidth <= 768; }
+
+  function initToolbar() {
+    if (isMobile()) {
+      toolbarToggle.style.display = 'inline-block';
+      toolbarExpandable.style.display = 'none';
+      toolbarToggle.setAttribute('aria-expanded', 'false');
+      toolbarToggle.textContent = 'Search & filter';
+    } else {
+      toolbarToggle.style.display = 'none';
+      toolbarExpandable.style.display = 'flex';
+    }
   }
+
+  initToolbar();
+  window.addEventListener('resize', initToolbar);
+
+  toolbarToggle.addEventListener('click', () => {
+    const isOpen = toolbarExpandable.style.display === 'none';
+    toolbarExpandable.style.display = isOpen ? 'flex' : 'none';
+    toolbarToggle.setAttribute('aria-expanded', isOpen);
+    toolbarToggle.textContent = isOpen ? 'Hide search' : 'Search & filter';
+    if (isOpen) document.getElementById('filter-search').focus();
+  });
 
   // Search input — debounced
   let searchTimer;
