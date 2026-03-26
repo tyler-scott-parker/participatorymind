@@ -99,7 +99,7 @@ permalink: /articles.html
   const grid = document.getElementById('series-filter-grid');
   function setGridCols() {
     const w = window.innerWidth;
-    grid.style.gridTemplateColumns = w < 480 ? '1fr' : w < 768 ? 'repeat(2,1fr)' : 'repeat(3,1fr)';
+    grid.style.gridTemplateColumns = w < 768 ? '1fr' : 'repeat(3,1fr)';
   }
   setGridCols();
   window.addEventListener('resize', setGridCols);
