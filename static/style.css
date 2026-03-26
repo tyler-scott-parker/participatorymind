@@ -1416,6 +1416,8 @@
     .filter-search:focus {
       border-color: rgba(201,169,110,0.3);
       color: var(--text);
+      box-shadow: none;
+      -webkit-box-shadow: none;
     }
 
     .filter-unread-toggle {

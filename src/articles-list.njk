@@ -55,7 +55,7 @@ permalink: /articles.html
 
   <!-- Toolbar: search + unread toggle -->
   <div class="filter-toolbar">
-    <button class="filter-toolbar-toggle" id="filter-toolbar-toggle" aria-expanded="false" style="display:none;">Search &amp; filter</button>
+    <button class="filter-toolbar-toggle" id="filter-toolbar-toggle" aria-expanded="false" style="display:none; -webkit-appearance:none; appearance:none; background:transparent; border:none; border-radius:0; padding:0; margin:0; font-family:inherit; font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; color:rgba(201,169,110,0.45); cursor:pointer;">Search &amp; filter</button>
     <div class="filter-toolbar-expandable" id="filter-toolbar-expandable" style="display:none;">
       <input
         type="text"
@@ -64,9 +64,10 @@ permalink: /articles.html
         placeholder="Search articles…"
         aria-label="Search articles"
         autocomplete="off"
+        style="-webkit-appearance:none; appearance:none; background:transparent !important; background-color:transparent !important; color:rgba(201,169,110,0.5); border:1px solid rgba(201,169,110,0.12); border-radius:0; font-family:inherit; font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; padding:0.4rem 0.7rem; outline:none; box-shadow:none; -webkit-box-shadow:none;"
       />
-      <label class="filter-unread-toggle">
-        <input type="checkbox" id="filter-unread" />
+      <label class="filter-unread-toggle" style="font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; color:rgba(201,169,110,0.45); display:flex; align-items:center; gap:0.5rem; cursor:pointer;">
+        <input type="checkbox" id="filter-unread" style="-webkit-appearance:none; appearance:none; width:14px; height:14px; min-width:14px; border:1px solid rgba(201,169,110,0.25); background:transparent; border-radius:0;" />
         Unread only
       </label>
     </div>
