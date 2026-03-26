@@ -94,7 +94,7 @@ permalink: /articles.html
   const cards = document.querySelectorAll('#archive-grid .article-card');
   const countEl = document.getElementById('filter-count');
   const emptyEl = document.getElementById('filter-empty');
-  const grid = document.getElementById('archive-grid');
+  const archiveGrid = document.getElementById('archive-grid');
   // Responsive grid columns
   const grid = document.getElementById('series-filter-grid');
   function setGridCols() {
@@ -124,7 +124,7 @@ permalink: /articles.html
     });
     countEl.textContent = filter === 'all' ? '' : visible + ' article' + (visible !== 1 ? 's' : '');
     emptyEl.style.display = visible === 0 ? 'block' : 'none';
-    grid.style.display = visible === 0 ? 'none' : '';
+    archiveGrid.style.display = visible === 0 ? 'none' : '';
   }
 
   seriesCards.forEach(btn => {
