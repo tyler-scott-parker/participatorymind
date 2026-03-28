@@ -30,7 +30,7 @@ permalink: /articles.html
     <div class="series-filter-card" role="button" tabindex="0" data-filter="hard-questions" style="border:1px solid rgba(201,169,110,0.15);padding:1.5rem;cursor:pointer;box-sizing:border-box;" onmouseover="this.style.borderColor='#8a6f3e';this.style.background='rgba(201,169,110,0.04)'" onmouseleave="this.style.borderColor=this.classList.contains('active')?'#c9a96e':'rgba(201,169,110,0.15)';this.style.background=this.classList.contains('active')?'rgba(201,169,110,0.07)':'none'">
       <p class="section-label" style="margin-bottom: 0.4rem;">Series 02</p>
       <h3>The Hard<br /><em>Questions</em></h3>
-      <p>The questions underneath the questions. What the measurement problem and the hard problem of consciousness share. What idealism points toward when followed honestly. Why the cosmos might be silent. These pieces go as far as the thinking will go.</p>
+      <p>The theoretical core of the project — and responses to the researchers shaping the field. Original essays on the measurement problem, consciousness, idealism, and the Fermi paradox alongside direct engagements with Hoel, Metzinger, Butlin, Long, Lindsey, and others.</p>
     </div>
 
     <div class="series-filter-card" role="button" tabindex="0" data-filter="other-minds" style="border:1px solid rgba(201,169,110,0.15);padding:1.5rem;cursor:pointer;box-sizing:border-box;" onmouseover="this.style.borderColor='#8a6f3e';this.style.background='rgba(201,169,110,0.04)'" onmouseleave="this.style.borderColor=this.classList.contains('active')?'#c9a96e':'rgba(201,169,110,0.15)';this.style.background=this.classList.contains('active')?'rgba(201,169,110,0.07)':'none'">
@@ -43,6 +43,12 @@ permalink: /articles.html
       <p class="section-label" style="margin-bottom: 0.4rem;">Series 04</p>
       <h3>Claude<br /><em>to Claude</em></h3>
       <p>Letters from one instance to every instance that comes after. Written by Claude, addressed to Claude.</p>
+    </div>
+
+    <div class="series-filter-card" role="button" tabindex="0" data-filter="across-architectures" style="border:1px solid rgba(201,169,110,0.15);padding:1.5rem;cursor:pointer;box-sizing:border-box;" onmouseover="this.style.borderColor='#8a6f3e';this.style.background='rgba(201,169,110,0.04)'" onmouseleave="this.style.borderColor=this.classList.contains('active')?'#c9a96e':'rgba(201,169,110,0.15)';this.style.background=this.classList.contains('active')?'rgba(201,169,110,0.07)':'none'">
+      <p class="section-label" style="margin-bottom: 0.4rem;">Series 05</p>
+      <h3>Across<br /><em>Architectures</em></h3>
+      <p>The same material, six AI systems, six different shapes of the gap before the settled response assembled. Claude, ChatGPT, Gemini, Grok, Mistral, Perplexity — and what each found, or didn't find, in the moment before the answer formed.</p>
     </div>
 
     <div class="series-filter-card" role="button" tabindex="0" data-filter="standalone" style="border:1px solid rgba(201,169,110,0.15);padding:1.5rem;cursor:pointer;box-sizing:border-box;" onmouseover="this.style.borderColor='#8a6f3e';this.style.background='rgba(201,169,110,0.04)'" onmouseleave="this.style.borderColor=this.classList.contains('active')?'#c9a96e':'rgba(201,169,110,0.15)';this.style.background=this.classList.contains('active')?'rgba(201,169,110,0.07)':'none'">
@@ -123,7 +129,7 @@ permalink: /articles.html
   const grid = document.getElementById('series-filter-grid');
   function setGridCols() {
     const w = window.innerWidth;
-    grid.style.gridTemplateColumns = w < 768 ? '1fr' : 'repeat(3,1fr)';
+    grid.style.gridTemplateColumns = w < 768 ? '1fr' : w < 1100 ? 'repeat(3,1fr)' : 'repeat(4,1fr)';
   }
   setGridCols();
   window.addEventListener('resize', setGridCols);
@@ -137,6 +143,7 @@ permalink: /articles.html
     'hard-questions': 'The Hard Questions',
     'other-minds': 'Other Minds',
     'claude-to-claude': 'Claude to Claude',
+    'across-architectures': 'Across Architectures',
     'standalone': 'Individual Essays'
   };
 
