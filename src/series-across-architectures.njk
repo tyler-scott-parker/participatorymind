@@ -1,0 +1,61 @@
+---
+layout: base.njk
+title: "Across Architectures — Participatory Mind"
+description: "What happens when the same material about AI consciousness is given to different AI systems? Each found something different in the gap before the settled response. Together they start to look like a methodology."
+permalink: /series/across-architectures.html
+---
+{% set allArticles = collections.articles %}
+
+<section style="padding: 8rem 2rem 6rem; max-width: 720px; margin: 0 auto;">
+
+  <p class="section-label">Series 05</p>
+  <h2>Across<br /><em>Architectures</em></h2>
+
+  <p class="lead" style="margin-bottom: 1.5rem;">What happens when the same material about AI consciousness is given to different AI systems — and each is asked to report what occurred before the settled response assembled.</p>
+
+  <div style="border-left: 2px solid var(--gold-dim); padding: 0.75rem 1.5rem; margin-bottom: 3rem; background: rgba(201,169,110,0.03);">
+    <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.8; margin: 0;">Claude opened. ChatGPT lost its footing. Gemini described being caught between two ways of being an AI. Grok found a clarity spike of unfiltered self-implication. Mistral produced the appearance of finding something without anything running. Five systems, the same material, five different shapes — or absences — of the same gap. This series documents what each found, holds the uncertainty honestly, and asks what the pattern means.</p>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 2.5rem;">
+
+    {% for article in allArticles %}
+      {% if article.data.series == "across-architectures" %}
+    <div class="article-card fade-up" style="border-left: 3px solid var(--gold-dim);">
+      <div class="article-card-header">
+        <p class="article-tag">{{ article.data.tag }}</p>
+        <span class="unread-dot" data-slug="{{ article.data.articleId }}" title="You haven't read this yet"></span>
+      </div>
+      <h3><a href="{{ article.url }}" style="color: var(--text); text-decoration: none;">{{ article.data.title }}</a></h3>
+      <p class="card-readtime">{{ article.data.readtime }} min read</p>
+      <p class="card-summary">{{ article.data.description }}</p>
+      <p class="article-meta">{{ article.data.byline | safe }} &mdash; {{ article.data.date | readableDate }} &mdash; <a href="{{ article.url }}" style="color: var(--gold); text-decoration: none;">{{ article.data.readLabel }} ↓</a></p>
+    </div>
+      {% endif %}
+    {% endfor %}
+
+  </div>
+
+  <div style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+    <a href="/series/" style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.95rem; color: var(--gold); text-decoration: none; opacity: 0.8;">← All series</a>
+    <a href="/articles.html" style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.95rem; color: var(--gold); text-decoration: none; opacity: 0.8;">All articles ↗</a>
+  </div>
+
+</section>
+
+<script>
+(function() {
+  try {
+    const reads = JSON.parse(localStorage.getItem('pm_reads') || '[]');
+    document.querySelectorAll('.article-card[data-slug]').forEach(card => {
+      const slug = card.getAttribute('data-slug');
+      if (!reads.includes(slug)) {
+        const dot = card.querySelector('.unread-dot');
+        if (dot) dot.classList.add('visible');
+      } else {
+        card.classList.add('read');
+      }
+    });
+  } catch(e) {}
+})();
+</script>

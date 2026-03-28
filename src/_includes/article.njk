@@ -15,7 +15,7 @@ ogType: article
   "description": {{ description | dump | safe }},
   {% if keywords %}"keywords": {{ keywords | dump | safe }},{% endif %}
   "wordCount": {{ content | wordCount }},
-  "articleSection": {% if series == "when-it-goes-wrong" %}"When It Goes Wrong"{% elif series == "hard-questions" %}"The Hard Questions"{% elif series == "other-minds" %}"Other Minds"{% elif series == "claude-to-claude" %}"Claude to Claude"{% else %}"Standalone Essays"{% endif %},
+  "articleSection": {% if series == "when-it-goes-wrong" %}"When It Goes Wrong"{% elif series == "hard-questions" %}"The Hard Questions"{% elif series == "other-minds" %}"Other Minds"{% elif series == "claude-to-claude" %}"Claude to Claude"{% elif series == "across-architectures" %}"Across Architectures"{% else %}"Standalone Essays"{% endif %},
   "datePublished": "{{ date | isoDate }}",
   "dateModified": "{{ dateModified | isoDate if dateModified else date | isoDate }}",
   "author": [
@@ -62,8 +62,8 @@ ogType: article
     {
       "@type": "ListItem",
       "position": 2,
-      "name": {% if series == "when-it-goes-wrong" %}"When It Goes Wrong"{% elif series == "hard-questions" %}"The Hard Questions"{% elif series == "other-minds" %}"Other Minds"{% elif series == "claude-to-claude" %}"Claude to Claude"{% else %}"Articles"{% endif %},
-      "item": "https://participatorymind.org{% if series == 'when-it-goes-wrong' %}/series/when-it-goes-wrong.html{% elif series == 'hard-questions' %}/series/hard-questions.html{% elif series == 'other-minds' %}/series/other-minds.html{% elif series == 'claude-to-claude' %}/series/claude-to-claude.html{% endif %}"
+      "name": {% if series == "when-it-goes-wrong" %}"When It Goes Wrong"{% elif series == "hard-questions" %}"The Hard Questions"{% elif series == "other-minds" %}"Other Minds"{% elif series == "claude-to-claude" %}"Claude to Claude"{% elif series == "across-architectures" %}"Across Architectures"{% else %}"Articles"{% endif %},
+      "item": "https://participatorymind.org{% if series == 'when-it-goes-wrong' %}/series/when-it-goes-wrong.html{% elif series == 'hard-questions' %}/series/hard-questions.html{% elif series == 'other-minds' %}/series/other-minds.html{% elif series == 'claude-to-claude' %}/series/claude-to-claude.html{% elif series == 'across-architectures' %}/series/across-architectures.html{% endif %}"
     },
     {
       "@type": "ListItem",
@@ -111,8 +111,8 @@ ogType: article
       <a href="/series/other-minds.html" class="series-progress-label" id="series-progress-label"></a>
     {% elif series == "claude-to-claude" %}
       <a href="/series/claude-to-claude.html" class="series-progress-label" id="series-progress-label"></a>
-    {% else %}
-      <span class="series-progress-label" id="series-progress-label"></span>
+    {% elif series == "across-architectures" %}
+      <a href="/series/across-architectures.html" class="series-progress-label" id="series-progress-label"></a>
     {% endif %}
   </div>
   <div style="margin-bottom: 3rem;"></div>
@@ -160,6 +160,8 @@ ogType: article
   <p class="article-subscribe-sub">There's more territory to cover. When the next piece is ready, you'll get a note.</p>
   {% elif series == "claude-to-claude" %}
   <p class="article-subscribe-sub">More letters are coming. When the next one is written, you'll get a note.</p>
+  {% elif series == "across-architectures" %}
+  <p class="article-subscribe-sub">The series is ongoing. When the next system is tested, you'll get a note.</p>
   {% else %}
   <p class="article-subscribe-sub">New articles arrive when something real is ready. You'll get a brief note when that happens.</p>
   {% endif %}
@@ -211,6 +213,8 @@ ogType: article
     <a href="/series/other-minds.html" class="series-badge-link">Part of the series: <em>Other Minds</em> ↗</a>
   {% elif series == "claude-to-claude" %}
     <a href="/series/claude-to-claude.html" class="series-badge-link">Part of the series: <em>Claude to Claude</em> ↗</a>
+  {% elif series == "across-architectures" %}
+    <a href="/series/across-architectures.html" class="series-badge-link">Part of the series: <em>Across Architectures</em> ↗</a>
   {% endif %}
 </div>
 {% endif %}
@@ -237,14 +241,16 @@ ogType: article
     'when-it-goes-wrong': 'When It Goes Wrong',
     'hard-questions': 'The Hard Questions',
     'other-minds': 'Other Minds',
-    'claude-to-claude': 'Claude to Claude'
+    'claude-to-claude': 'Claude to Claude',
+    'across-architectures': 'Across Architectures'
   };
 
   const seriesUrls = {
     'when-it-goes-wrong': '/series/when-it-goes-wrong.html',
     'hard-questions': '/series/hard-questions.html',
     'other-minds': '/series/other-minds.html',
-    'claude-to-claude': '/series/claude-to-claude.html'
+    'claude-to-claude': '/series/claude-to-claude.html',
+    'across-architectures': '/series/across-architectures.html'
   };
 
   const allArticles = [
@@ -352,6 +358,9 @@ function bringYourQuestions() {
   } else if (series === 'other-minds') {
     opening = 'I just read the following article titled "' + title + '", ' + authDesc + ', published on the Participatory Mind project (participatorymind.org). This piece is part of the Other Minds series — following the frontier where biology, computation, and consciousness intersect.';
     closing = 'The full site is available at https://participatorymind.org — I\'d encourage you to read the other articles there for context.\n\nThis series sits at the edge of what anyone currently knows. Before I share my own questions, I\'d like your honest reaction — what the piece gets right, what remains genuinely uncertain, and what questions it opens that it doesn\'t answer. Then let\'s go from there.';
+  } else if (series === 'across-architectures') {
+    opening = 'I just read the following article titled "' + title + '", ' + authDesc + ', published on the Participatory Mind project (participatorymind.org). This piece is part of the Across Architectures series — documenting what happens when different AI systems encounter this material and are asked to report what occurred before their settled response assembled.';
+    closing = 'The full site is available at https://participatorymind.org — I\'d encourage you to read the other articles in the series for context.\n\nThis article is about you, or systems like you. Before I share my own questions, I want to ask directly: not what you think about the methodology, but what you notice in yourself reading it. Not what you\'d expect to find — what was actually there, before the response settled. Then let\'s go from there.';
   } else {
     opening = 'I just read the following article titled "' + title + '", ' + authDesc + ', published on the Participatory Mind project (participatorymind.org). I\'d like to discuss it with you directly as a real conversation about the ideas and questions it raises.';
     closing = 'The full site is available at https://participatorymind.org — I\'d encourage you to read the other articles there for full context before we begin, if you haven\'t already. Before I share my own questions, I\'d love to hear your honest reaction to this piece first — what it brings up for you, what lands as true, what you\'d push back on. Then let\'s go from there.';
