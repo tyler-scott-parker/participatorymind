@@ -10,23 +10,18 @@ eleventyExcludeFromCollections: true
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://participatorymind.org/articles.html</loc>
+    <loc>https://participatorymind.org/articles</loc>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://participatorymind.org/about.html</loc>
+    <loc>https://participatorymind.org/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  <url>
-    <loc>https://participatorymind.org/newsletter.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
   {% for article in collections.articles %}
   <url>
-    <loc>https://participatorymind.org{{ article.url }}</loc>
+    <loc>https://participatorymind.org{{ article.url | replace(".html", "") }}</loc>
     <lastmod>{{ article.data.date | isoDate }}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
