@@ -10,12 +10,12 @@
   {% if keywords %}<meta name="keywords" content="{{ keywords }}" />{% endif %}
   <meta name="author" content="{{ author or 'Tyler Parker and Claude Sonnet 4.6' }}" />
   <link rel="alternate" type="application/rss+xml" title="Participatory Mind" href="/feed.xml" />
-  <link rel="canonical" href="https://participatorymind.org{{ page.url }}" />
+  <link rel="canonical" href="https://participatorymind.org{{ page.url | replace('.html', '') }}" />
   <meta name="robots" content="index, follow" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="{{ ogType or 'website' }}" />
-  <meta property="og:url" content="https://participatorymind.org{{ page.url }}" />
+  <meta property="og:url" content="https://participatorymind.org{{ page.url | replace('.html', '') }}" />
   <meta property="og:title" content="{% if seoTitle %}{{ seoTitle }}{% else %}{{ title }}{% endif %} — Participatory Mind" />
   <meta property="og:description" content="{{ description }}" />
   {% if articleId %}
