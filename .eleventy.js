@@ -6,6 +6,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy({"static": "/"});
   eleventyConfig.addPassthroughCopy("src/og-image.png");
   eleventyConfig.addPassthroughCopy("src/robots.txt");
+  eleventyConfig.addPassthroughCopy("src/_redirects");
 
   // Articles collection — ordered by date
   eleventyConfig.addCollection("articles", function(collectionApi) {
